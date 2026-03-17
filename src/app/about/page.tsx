@@ -2,9 +2,10 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
+import { HorizontalScrollCarousel } from "@/components/ui/horizontal-scroll-carousel";
+import { AnimatedHero } from "@/components/ui/animated-hero";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", weight: "400" });
 
@@ -36,7 +37,7 @@ function CardHover({ title, body }: { title: string; body: string }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        padding: "64px 48px",
+        padding: "clamp(28px, 5vw, 64px) clamp(20px, 4vw, 48px)",
         borderRight: "1px solid var(--rule)",
         borderBottom: "1px solid var(--rule)",
         background: hovered ? "var(--cream-alt)" : "var(--white)",
@@ -203,8 +204,8 @@ export default function AboutPage() {
         className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          paddingTop: 72,
-          paddingBottom: 72,
+          paddingTop: "clamp(40px, 6vw, 72px)",
+          paddingBottom: "clamp(40px, 6vw, 72px)",
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -394,7 +395,7 @@ export default function AboutPage() {
             <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 48,
+                fontSize: "clamp(28px, 4vw, 48px)",
                 fontWeight: 400,
                 color: "var(--charcoal)",
                 marginBottom: 8,
@@ -446,92 +447,156 @@ export default function AboutPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          Contact CTA
+          Our Process
       ══════════════════════════════════════════════════════ */}
-      <div
+      <section
+        style={{ borderTop: "1px solid var(--rule)", background: "var(--white)" }}
+      >
+        <div className="px-5 md:px-12" style={{ maxWidth: 1400, margin: "0 auto", paddingTop: 56, paddingBottom: 0 }}>
+          <Reveal>
+            <p
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--gold)",
+                marginBottom: 12,
+              }}
+            >
+              How We Work
+            </p>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 34,
+                fontWeight: 400,
+                color: "var(--charcoal)",
+                marginBottom: 8,
+              }}
+            >
+              Our Process
+            </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)" }} />
+          </Reveal>
+        </div>
+        <HorizontalScrollCarousel
+          steps={[
+            {
+              number: "01",
+              title: "Consultation",
+              body: "We meet with you on-site to understand your goals, assess the condition of the space, and provide a clear, honest estimate. No guesswork—just straightforward guidance from the start.",
+            },
+            {
+              number: "02",
+              title: "Planning",
+              body: "We outline the full scope of work, materials, and timeline so everything is aligned before we begin. You'll know exactly what to expect at every stage.",
+            },
+            {
+              number: "03",
+              title: "Execution",
+              body: "Our in-house team handles the work from start to finish—no subcontractors. We stay on schedule, maintain a clean job site, and focus on delivering quality that lasts.",
+            },
+            {
+              number: "04",
+              title: "Final Walkthrough",
+              body: "Before we wrap up, we walk the project with you to ensure everything meets our standards—and yours. We don't consider the job done until you're satisfied.",
+            },
+          ]}
+        />
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          Proudly Serving
+      ══════════════════════════════════════════════════════ */}
+      <section
+        className="px-5 md:px-12"
         style={{
-          position: "relative",
-          height: "50vh",
-          minHeight: 360,
-          overflow: "hidden",
-          background: "#E8E3DA",
+          background: "var(--white)",
+          paddingTop: 56,
+          paddingBottom: 56,
           borderTop: "1px solid var(--rule)",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "url('https://placehold.co/1600x900/C8C0B4/D0C8BC?text=.')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 60%",
-            filter: "grayscale(100%) contrast(0.9) brightness(1.05)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "rgba(245,240,232,0.25)",
-          }}
-        />
-
-        <Reveal>
-          <div
-            className="px-5 md:px-12"
-            style={{
-              position: "absolute",
-              bottom: 32,
-              left: 0,
-              right: 0,
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 16,
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-            }}
-          >
-            <div>
-              <p
-                className={`${inter.className}`}
-                style={{
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--stone)",
-                  marginBottom: 8,
-                }}
-              >
-                Protect your project
-              </p>
-              <h2
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "clamp(48px, 7vw, 100px)",
-                  fontWeight: 400,
-                  letterSpacing: "-0.03em",
-                  textTransform: "uppercase",
-                  color: "var(--charcoal)",
-                  lineHeight: 0.92,
-                }}
-              >
-                Contact Us
-              </h2>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <Reveal>
+            <p
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--gold)",
+                marginBottom: 12,
+              }}
+            >
+              Service Area
+            </p>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 34,
+                fontWeight: 400,
+                color: "var(--charcoal)",
+                marginBottom: 8,
+              }}
+            >
+              Proudly Serving
+            </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 22,
+                fontWeight: 400,
+                color: "var(--stone)",
+                marginBottom: 20,
+                letterSpacing: "0.02em",
+              }}
+            >
+              Tampa Bay Area
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {["Tampa", "Lutz", "Odessa", "Wesley Chapel", "Surrounding Areas"].map((area) => (
+                <span
+                  key={area}
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: 12,
+                    fontWeight: 400,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--charcoal)",
+                    padding: "10px 20px",
+                    border: "1px solid var(--rule)",
+                    display: "inline-block",
+                  }}
+                >
+                  {area}
+                </span>
+              ))}
             </div>
+          </Reveal>
+        </div>
+      </section>
 
-            <div style={{ flexShrink: 0 }}>
-              <Image
-                src="/logo.png"
-                alt="TerraGold Construction Services"
-                width={180}
-                height={46}
-                style={{ height: 46, width: "auto", objectFit: "contain" }}
-              />
-            </div>
-          </div>
-        </Reveal>
-      </div>
+      {/* ══════════════════════════════════════════════════════
+          Animated CTA
+      ══════════════════════════════════════════════════════ */}
+      <AnimatedHero
+        headline="Your project,"
+        titles={[
+          "done right",
+          "built to last",
+          "handled properly",
+          "built with care",
+          "done without shortcuts",
+        ]}
+        subtext="Whether you need repairs or a full transformation, our team is ready to deliver quality work you can trust from start to finish."
+        phone="310-855-4521"
+      />
     </>
   );
 }

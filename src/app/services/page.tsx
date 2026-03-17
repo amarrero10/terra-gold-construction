@@ -381,6 +381,82 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Proudly Serving */}
+      <section
+        className="px-5 md:px-12"
+        style={{
+          background: "var(--white)",
+          paddingTop: 56,
+          paddingBottom: 56,
+          borderBottom: "1px solid var(--rule)",
+        }}
+      >
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <Reveal>
+            <p
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--gold)",
+                marginBottom: 12,
+              }}
+            >
+              Service Area
+            </p>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 34,
+                fontWeight: 400,
+                color: "var(--charcoal)",
+                marginBottom: 8,
+              }}
+            >
+              Proudly Serving
+            </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 22,
+                fontWeight: 400,
+                color: "var(--stone)",
+                marginBottom: 20,
+                letterSpacing: "0.02em",
+              }}
+            >
+              Tampa Bay Area
+            </p>
+            <div
+              className="flex flex-wrap gap-3"
+            >
+              {["Tampa", "Lutz", "Odessa", "Wesley Chapel", "Surrounding Areas"].map((area) => (
+                <span
+                  key={area}
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: 12,
+                    fontWeight: 400,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--charcoal)",
+                    padding: "10px 20px",
+                    border: "1px solid var(--rule)",
+                    display: "inline-block",
+                  }}
+                >
+                  {area}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* CTA */}
       <section
         className="px-5 md:px-12"
