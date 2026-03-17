@@ -27,8 +27,8 @@ export default function Navbar() {
         }}
       >
         <div
-          className="mx-auto px-16 flex items-center justify-between h-full"
-          style={{ maxWidth: "1400px" }}
+          className="px-16 flex items-center justify-between h-full"
+          style={{ maxWidth: "1400px", margin: "0 auto" }}
         >
           {/* Logo */}
           <Link href="/" className="flex items-center">
