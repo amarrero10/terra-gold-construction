@@ -50,8 +50,8 @@ export default function TestimonialsPage() {
   return (
     <>
       {/* Page header */}
-      <div style={{ paddingTop: 68, background: "var(--cream)", borderBottom: "1px solid var(--rule)" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "64px 48px" }}>
+      <div style={{ paddingTop: 84, background: "var(--cream)", borderBottom: "1px solid var(--rule)" }}>
+        <div className="px-5 md:px-12" style={{ maxWidth: 1400, margin: "0 auto", paddingTop: 48, paddingBottom: 48 }}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ export default function TestimonialsPage() {
       </div>
 
       {/* Featured pull quote */}
-      <section style={{ background: "var(--cream-alt)", padding: "80px 48px", borderBottom: "1px solid var(--rule)" }}>
+      <section className="px-5 md:px-12" style={{ background: "var(--cream-alt)", paddingTop: 64, paddingBottom: 64, borderBottom: "1px solid var(--rule)" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "48px 1fr", gap: 20 }}>
             <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 80, fontWeight: 300, color: "var(--gold)", lineHeight: 0.7, opacity: 0.5 }}>
@@ -122,15 +122,16 @@ export default function TestimonialsPage() {
       </section>
 
       {/* All reviews */}
-      <section style={{ background: "var(--white)", padding: "72px 48px" }}>
+      <section className="px-5 md:px-12" style={{ background: "var(--white)", paddingTop: 56, paddingBottom: 56 }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <Reveal>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 30, fontWeight: 400, color: "var(--charcoal)", marginBottom: 48 }}>
-              All Reviews<span style={{ color: "var(--gold)" }}>/</span>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 30, fontWeight: 400, color: "var(--charcoal)", marginBottom: 8 }}>
+              All Reviews
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 40 }} />
           </Reveal>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "var(--rule)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 1, background: "var(--rule)" }}>
             {reviews.map((r, i) => (
               <Reveal key={r.name} delay={i * 0.05}>
                 <div style={{ background: "var(--white)", padding: "32px 28px", height: "100%", display: "flex", flexDirection: "column" }}>
@@ -155,7 +156,7 @@ export default function TestimonialsPage() {
 
       {/* Stats */}
       <section style={{ background: "var(--cream)", borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", borderLeft: "1px solid var(--rule)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-3" style={{ maxWidth: 1400, margin: "0 auto", borderLeft: "1px solid var(--rule)" }}>
           {[
             { v: "5.0", l: "Average Rating" },
             { v: "100+", l: "Verified Reviews" },
@@ -174,7 +175,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "var(--cream)", padding: "72px 48px", textAlign: "center" }}>
+      <section className="px-5 md:px-12" style={{ background: "var(--cream)", paddingTop: 56, paddingBottom: 56, textAlign: "center" }}>
         <Reveal>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 400, color: "var(--charcoal)", marginBottom: 16 }}>
             Join our happy clients<span style={{ color: "var(--gold)" }}>.</span>

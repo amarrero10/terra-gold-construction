@@ -132,16 +132,18 @@ export default function ServicesPage() {
       {/* Page header */}
       <div
         style={{
-          paddingTop: 68,
+          paddingTop: 84,
           background: "var(--cream)",
           borderBottom: "1px solid var(--rule)",
         }}
       >
         <div
+          className="px-5 md:px-12"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            padding: "64px 48px",
+            paddingTop: 48,
+            paddingBottom: 48,
           }}
         >
           <motion.p
@@ -200,9 +202,9 @@ export default function ServicesPage() {
 
       {/* Services accordion list */}
       <section
+        className="px-5 md:px-12"
         style={{
           background: "var(--white)",
-          padding: "0 48px",
           borderBottom: "1px solid var(--rule)",
         }}
       >
@@ -217,12 +219,11 @@ export default function ServicesPage() {
                 onClick={() => setOpen(open === i ? null : i)}
               >
                 <div
+                  className="grid grid-cols-[40px_1fr_auto] md:grid-cols-[80px_1fr_auto]"
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "80px 1fr auto",
-                    gap: 32,
+                    gap: 16,
                     alignItems: "center",
-                    padding: "28px 0",
+                    padding: "24px 0",
                   }}
                 >
                   <span
@@ -275,14 +276,13 @@ export default function ServicesPage() {
 
                 {open === i && (
                   <div
+                    className="grid grid-cols-1 md:grid-cols-[80px_1fr_1fr]"
                     style={{
-                      display: "grid",
-                      gridTemplateColumns: "80px 1fr 1fr",
-                      gap: 32,
+                      gap: 24,
                       paddingBottom: 36,
                     }}
                   >
-                    <div />
+                    <div className="hidden md:block" />
                     <p
                       className={`${inter.className}`}
                       style={{
@@ -325,9 +325,11 @@ export default function ServicesPage() {
 
       {/* Complete list */}
       <section
+        className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          padding: "72px 48px",
+          paddingTop: 56,
+          paddingBottom: 56,
           borderBottom: "1px solid var(--rule)",
         }}
       >
@@ -339,18 +341,17 @@ export default function ServicesPage() {
                 fontSize: 30,
                 fontWeight: 400,
                 color: "var(--charcoal)",
-                marginBottom: 40,
+                marginBottom: 8,
               }}
             >
               Full Service List
-              <span style={{ color: "var(--gold)" }}>/</span>
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 32 }} />
           </Reveal>
           <Reveal delay={0.08}>
             <div
+              className="grid grid-cols-2 md:grid-cols-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
                 borderTop: "1px solid var(--rule)",
               }}
             >
@@ -383,9 +384,11 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <section
+        className="px-5 md:px-12"
         style={{
           background: "var(--cream-alt)",
-          padding: "72px 48px",
+          paddingTop: 56,
+          paddingBottom: 56,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

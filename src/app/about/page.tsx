@@ -76,19 +76,18 @@ export default function AboutPage() {
       ══════════════════════════════════════════════════════ */}
       <div
         style={{
-          paddingTop: 68,
+          paddingTop: 84,
           background: "var(--cream)",
           borderBottom: "1px solid var(--rule)",
         }}
       >
         <div
+          className="grid grid-cols-1 md:grid-cols-[340px_1fr] px-5 md:px-12"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            padding: "64px 48px 0",
-            display: "grid",
-            gridTemplateColumns: "340px 1fr",
-            gap: 64,
+            paddingTop: 48,
+            gap: 40,
             alignItems: "start",
           }}
         >
@@ -104,12 +103,12 @@ export default function AboutPage() {
                 fontSize: 32,
                 fontWeight: 400,
                 color: "var(--charcoal)",
-                marginBottom: 20,
+                marginBottom: 8,
               }}
             >
               Our Company
-              <span style={{ color: "var(--gold)" }}>/</span>
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 12 }} />
             <p
               className={`${inter.className}`}
               style={{
@@ -154,10 +153,11 @@ export default function AboutPage() {
 
         {/* "Craftsmanship" continuation line */}
         <div
+          className="px-5 md:px-12"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            padding: "0 48px 64px",
+            paddingBottom: 48,
             overflow: "hidden",
           }}
         >
@@ -190,9 +190,11 @@ export default function AboutPage() {
           "Meet Our Team /" — value/team grid
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          padding: "72px 48px",
+          paddingTop: 56,
+          paddingBottom: 56,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -204,12 +206,12 @@ export default function AboutPage() {
                 fontSize: 30,
                 fontWeight: 400,
                 color: "var(--charcoal)",
-                marginBottom: 48,
+                marginBottom: 8,
               }}
             >
               Meet the Team
-              <span style={{ color: "var(--gold)" }}>/</span>
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 40 }} />
           </Reveal>
 
           {/* Category label */}
@@ -236,9 +238,8 @@ export default function AboutPage() {
           {/* Team member */}
           <Reveal>
             <div
+              className="grid grid-cols-2 md:grid-cols-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
                 gap: 24,
                 marginBottom: 48,
               }}
@@ -314,9 +315,8 @@ export default function AboutPage() {
 
           <Reveal delay={0.08}>
             <div
+              className="grid grid-cols-2 md:grid-cols-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
                 gap: 24,
                 marginBottom: 48,
               }}
@@ -380,19 +380,20 @@ export default function AboutPage() {
           Pull quote
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-12"
         style={{
           background: "var(--cream-alt)",
-          padding: "72px 48px",
+          paddingTop: 56,
+          paddingBottom: 56,
           borderTop: "1px solid var(--rule)",
         }}
       >
         <div
+          className="grid grid-cols-[40px_1fr] md:grid-cols-[64px_1fr]"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "64px 1fr",
-            gap: 32,
+            gap: 24,
             alignItems: "start",
           }}
         >
@@ -444,9 +445,11 @@ export default function AboutPage() {
           Our Certifications / (mirrors "Our Memberships/")
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          padding: "72px 48px",
+          paddingTop: 56,
+          paddingBottom: 56,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -458,12 +461,12 @@ export default function AboutPage() {
                 fontSize: 30,
                 fontWeight: 400,
                 color: "var(--charcoal)",
-                marginBottom: 40,
+                marginBottom: 8,
               }}
             >
               Our Certifications
-              <span style={{ color: "var(--gold)" }}>/</span>
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 32 }} />
           </Reveal>
 
           <Reveal delay={0.08}>
@@ -539,12 +542,15 @@ export default function AboutPage() {
 
         <Reveal>
           <div
+            className="px-5 md:px-12"
             style={{
               position: "absolute",
-              bottom: 40,
-              left: 48,
-              right: 48,
+              bottom: 32,
+              left: 0,
+              right: 0,
               display: "flex",
+              flexWrap: "wrap",
+              gap: 16,
               justifyContent: "space-between",
               alignItems: "flex-end",
             }}

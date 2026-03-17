@@ -21,13 +21,13 @@ export default function Navbar() {
       <header
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: "#0a0a0a",
+          background: "#000000",
           borderBottom: "1px solid rgba(212,175,55,0.18)",
-          height: "72px",
+          height: "84px",
         }}
       >
         <div
-          className="px-16 flex items-center justify-between h-full"
+          className="px-4 md:px-16 flex items-center justify-between h-full"
           style={{ maxWidth: "1400px", margin: "0 auto" }}
         >
           {/* Logo */}
@@ -37,7 +37,7 @@ export default function Navbar() {
               alt="TerraGold Construction Services"
               width={220}
               height={56}
-              style={{ height: 52, width: "auto", objectFit: "contain", marginLeft: 10 }}
+              style={{ height: 62, width: "auto", objectFit: "contain", marginLeft: 10 }}
               priority
             />
           </Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
                 href={l.href}
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: 400,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -75,13 +75,13 @@ export default function Navbar() {
               href="/contact"
               style={{
                 fontFamily: "'Montserrat', sans-serif",
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: 500,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 color: "#0a0a0a",
                 background: "var(--gold)",
-                padding: "10px 22px",
+                padding: "12px 26px",
                 textDecoration: "none",
                 display: "inline-block",
                 transition: "opacity 0.2s",
@@ -126,8 +126,8 @@ export default function Navbar() {
           position: "fixed",
           inset: 0,
           zIndex: 40,
-          background: "#0a0a0a",
-          paddingTop: 72,
+          background: "#000000",
+          paddingTop: 84,
           transition: "opacity 0.3s, transform 0.3s",
           opacity: open ? 1 : 0,
           transform: open ? "none" : "translateY(-6px)",

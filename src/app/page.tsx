@@ -80,15 +80,15 @@ function Reveal({
 const expertise = [
   {
     title: "Stucco Systems",
-    desc: "Cementous and synthetic (EIFS) stucco applied by our own team — no sub-contractors. Perfect texture matching on repairs and new applications.",
+    desc: "Cementitious and synthetic (EIFS) stucco installed and repaired by our in-house team. We ensure seamless texture matching and long-lasting finishes across every application.",
   },
   {
     title: "Drywall Solutions",
-    desc: "Build-outs, water-damage repairs, and specialty textures including Knock-down, Spanish Lace, and Orange Peel.",
+    desc: "From full build-outs to water damage repair, we handle all aspects of drywall with precision. Specialty textures include Knockdown, Spanish Lace, and Orange Peel.",
   },
   {
     title: "Stone & Painting",
-    desc: "Manufactured and natural stone veneer, fireplace renovations, and professional interior/exterior painting for residential and commercial.",
+    desc: "Expert installation of manufactured and natural stone veneer, along with professional interior and exterior painting designed to elevate and protect your property.",
   },
 ];
 
@@ -117,7 +117,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════
           HERO — full viewport photo + large serif heading
       ══════════════════════════════════════════════════════ */}
-      <section style={{ paddingTop: 72 }}>
+      <section style={{ paddingTop: 84 }}>
         {/* Full-viewport photo */}
         <div
           style={{
@@ -155,12 +155,13 @@ export default function HomePage() {
 
         {/* Hero text — overlaps photo bottom edge */}
         <div
+          className="px-5 md:px-16"
           style={{
             background: "var(--cream)",
-            marginTop: -100,
             position: "relative",
             zIndex: 2,
-            padding: "48px 64px 120px",
+            paddingTop: 48,
+            paddingBottom: 80,
             maxWidth: 1400,
             margin: "-100px auto 0",
           }}
@@ -170,7 +171,7 @@ export default function HomePage() {
               <h1
                 className={`${gelasio.className}`}
                 style={{
-                  fontSize: "clamp(60px, 8vw, 120px)",
+                  fontSize: "clamp(28px, 8vw, 120px)",
                   fontWeight: 400,
                   letterSpacing: "-0.03em",
                   lineHeight: 0.93,
@@ -186,7 +187,7 @@ export default function HomePage() {
               <div
                 className={`${gelasio.className}`}
                 style={{
-                  fontSize: "clamp(60px, 8vw, 120px)",
+                  fontSize: "clamp(28px, 8vw, 120px)",
                   fontWeight: 400,
                   letterSpacing: "-0.03em",
                   lineHeight: 0.93,
@@ -201,11 +202,10 @@ export default function HomePage() {
 
           <BlurFade delay={0.3} duration={0.65} yOffset={12} blur="4px">
             <div
+              className="grid grid-cols-1 md:grid-cols-2"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 80,
-                marginTop: 64,
+                gap: 40,
+                marginTop: 48,
                 alignItems: "start",
               }}
             >
@@ -265,10 +265,12 @@ export default function HomePage() {
           Who We Are — intro text
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-16"
         style={{
           background: "var(--cream-alt)",
           borderTop: "1px solid var(--rule)",
-          padding: "140px 64px",
+          paddingTop: 80,
+          paddingBottom: 80,
         }}
       >
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -378,9 +380,11 @@ export default function HomePage() {
           Our Expertise /
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-16"
         style={{
           background: "var(--cream)",
-          padding: "140px 64px",
+          paddingTop: 80,
+          paddingBottom: 80,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -389,14 +393,15 @@ export default function HomePage() {
             <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 48,
+                fontSize: "clamp(28px, 5vw, 48px)",
                 fontWeight: 400,
                 color: "var(--charcoal)",
-                marginBottom: 16,
+                marginBottom: 8,
               }}
             >
-              Our Expertise<span style={{ color: "var(--gold)" }}>/</span>
+              What We Specialize In
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginTop: 0, marginBottom: 8 }} />
             <p
               className={`${inter.className}`}
               style={{
@@ -408,26 +413,27 @@ export default function HomePage() {
                 marginBottom: 72,
               }}
             >
-              Our multidisciplinary team ensures better outcomes at every stage of your project
-              lifecycle. With diverse industry experience, we proactively manage, build, and
-              beautify your assets.
+              Our multidisciplinary team delivers consistent, high-quality results at every stage
+              of your project. By keeping all work in-house, we maintain full control over
+              craftsmanship, timelines, and outcomes—no shortcuts, no sub-contractors.
             </p>
           </Reveal>
 
           <div
+            className="grid grid-cols-1 md:grid-cols-3"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
               borderTop: "1px solid var(--rule)",
             }}
           >
             {expertise.map((e, i) => (
               <Reveal key={e.title} delay={i * 0.08}>
                 <div
+                  className={i > 0 ? "border-t border-(--rule) md:border-t-0 md:pl-12" : ""}
                   style={{
-                    padding: "64px 48px 64px 0",
+                    paddingTop: 48,
+                    paddingRight: 48,
+                    paddingBottom: 48,
                     borderRight: i < 2 ? "1px solid var(--rule)" : "none",
-                    paddingLeft: i > 0 ? 48 : 0,
                   }}
                 >
                   <div
@@ -475,19 +481,20 @@ export default function HomePage() {
           Services we offer / — accordion
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-16"
         style={{
           background: "var(--white)",
-          padding: "140px 64px",
+          paddingTop: 80,
+          paddingBottom: 80,
           borderTop: "1px solid var(--rule)",
         }}
       >
         <div
+          className="grid grid-cols-1 md:grid-cols-[360px_1fr]"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "420px 1fr",
-            gap: 120,
+            gap: 60,
           }}
         >
           {/* Left heading — sticky */}
@@ -500,14 +507,14 @@ export default function HomePage() {
                   fontWeight: 400,
                   color: "var(--charcoal)",
                   lineHeight: 1.1,
-                  marginBottom: 28,
+                  marginBottom: 8,
                 }}
               >
-                Services we
+                Explore Our
                 <br />
-                offer
-                <span style={{ color: "var(--gold)" }}>/</span>
+                Services
               </p>
+              <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 20 }} />
               <p
                 className={`${inter.className}`}
                 style={{
@@ -518,9 +525,7 @@ export default function HomePage() {
                   marginBottom: 36,
                 }}
               >
-                We make complex projects simple. From structural repairs to full exterior
-                transformations — all completed by our own team of professionals, never
-                sub-contracted.
+                We make complex projects simple—handled entirely by our team from start to finish.
               </p>
               <Link
                 href="/services"
@@ -611,9 +616,11 @@ export default function HomePage() {
           Insights & Projects /
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-16"
         style={{
           background: "var(--cream)",
-          padding: "140px 64px",
+          paddingTop: 80,
+          paddingBottom: 80,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -622,9 +629,11 @@ export default function HomePage() {
             <div
               style={{
                 display: "flex",
+                flexWrap: "wrap",
+                gap: 16,
                 justifyContent: "space-between",
                 alignItems: "flex-end",
-                marginBottom: 64,
+                marginBottom: 48,
               }}
             >
               <p
@@ -636,8 +645,8 @@ export default function HomePage() {
                 }}
               >
                 Insights &amp; Projects
-                <span style={{ color: "var(--gold)" }}>/</span>
               </p>
+              <div style={{ width: 36, height: 2, background: "var(--gold)", marginTop: 8 }} />
               <Link
                 href="/gallery"
                 style={{
@@ -657,11 +666,8 @@ export default function HomePage() {
           </Reveal>
 
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 32,
-            }}
+            className="grid grid-cols-1 md:grid-cols-3"
+            style={{ gap: 32 }}
           >
             {projects.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08}>
@@ -755,13 +761,12 @@ export default function HomePage() {
       >
         {/* Top: text + photo */}
         <div
+          className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-16"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            padding: "120px 64px 0",
-            gap: 80,
+            paddingTop: 80,
+            gap: 48,
           }}
         >
           <Reveal>
@@ -847,8 +852,9 @@ export default function HomePage() {
         {/* "FIFTEEN YEARS" */}
         <Reveal>
           <div
+            className="px-5 md:px-14"
             style={{
-              padding: "0 56px 24px",
+              paddingBottom: 24,
               maxWidth: 1400,
               margin: "0 auto",
               overflow: "hidden",
@@ -876,9 +882,11 @@ export default function HomePage() {
           Our Certifications /
       ══════════════════════════════════════════════════════ */}
       <section
+        className="px-5 md:px-16"
         style={{
           background: "var(--cream)",
-          padding: "140px 64px",
+          paddingTop: 80,
+          paddingBottom: 80,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -890,19 +898,18 @@ export default function HomePage() {
                 fontSize: 48,
                 fontWeight: 400,
                 color: "var(--charcoal)",
-                marginBottom: 64,
+                marginBottom: 8,
               }}
             >
               Our Certifications
-              <span style={{ color: "var(--gold)" }}>/</span>
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 40 }} />
           </Reveal>
 
           <Reveal delay={0.08}>
             <div
+              className="grid grid-cols-2 md:grid-cols-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
                 borderTop: "1px solid var(--rule)",
                 borderLeft: "1px solid var(--rule)",
               }}

@@ -19,21 +19,21 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: "var(--charcoal)", color: "var(--cream)" }}>
+    <footer style={{ background: "#000000", color: "var(--cream)" }}>
       {/* Main columns */}
       <div
+        className="grid grid-cols-2 md:grid-cols-4 px-5 md:px-12"
         style={{
           maxWidth: 1400,
           margin: "0 auto",
-          padding: "72px 48px 48px",
-          display: "grid",
-          gridTemplateColumns: "2fr 1.5fr 1fr 1.5fr",
-          gap: 64,
+          paddingTop: 56,
+          paddingBottom: 40,
+          gap: 40,
           borderBottom: "1px solid rgba(255,255,255,0.08)",
         }}
       >
         {/* Brand */}
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <div style={{ marginBottom: 20 }}>
             <Image
               src="/logo.png"
@@ -119,11 +119,15 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div
+        className="px-5 md:px-12"
         style={{
           maxWidth: 1400,
           margin: "0 auto",
-          padding: "20px 48px",
+          paddingTop: 20,
+          paddingBottom: 20,
           display: "flex",
+          flexWrap: "wrap",
+          gap: 8,
           justifyContent: "space-between",
           alignItems: "center",
         }}

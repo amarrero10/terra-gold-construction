@@ -53,7 +53,7 @@ export default function ContactPage() {
       ══════════════════════════════════════════════════════ */}
       <div
         style={{
-          paddingTop: 68,
+          paddingTop: 84,
           position: "relative",
           height: "70vh",
           minHeight: 480,
@@ -242,19 +242,20 @@ export default function ContactPage() {
       ══════════════════════════════════════════════════════ */}
       <section
         id="contact-form"
+        className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          padding: "80px 48px",
+          paddingTop: 64,
+          paddingBottom: 64,
           borderTop: "1px solid var(--rule)",
         }}
       >
         <div
+          className="grid grid-cols-1 md:grid-cols-[300px_1fr]"
           style={{
             maxWidth: 1400,
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "320px 1fr",
-            gap: 96,
+            gap: 56,
           }}
         >
           {/* Left: contact details */}
@@ -266,12 +267,12 @@ export default function ContactPage() {
                   fontSize: 28,
                   fontWeight: 400,
                   color: "var(--charcoal)",
-                  marginBottom: 36,
+                  marginBottom: 8,
                 }}
               >
                 Get in Touch
-                <span style={{ color: "var(--gold)" }}>/</span>
               </p>
+              <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
 
               {[
                 {
@@ -432,10 +433,9 @@ export default function ContactPage() {
               >
                 {/* Row 1 */}
                 <div
+                  className="grid grid-cols-1 md:grid-cols-2"
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: 32,
+                    gap: 24,
                     marginBottom: 32,
                   }}
                 >
@@ -490,10 +490,9 @@ export default function ContactPage() {
 
                 {/* Row 2 */}
                 <div
+                  className="grid grid-cols-1 md:grid-cols-2"
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: 32,
+                    gap: 24,
                     marginBottom: 32,
                   }}
                 >

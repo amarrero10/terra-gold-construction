@@ -210,12 +210,12 @@ export default function GalleryPage() {
       {/* ── Page header ─────────────────────────── */}
       <div
         style={{
-          paddingTop: 72,
+          paddingTop: 84,
           background: "var(--cream)",
           borderBottom: "1px solid var(--rule)",
         }}
       >
-        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "64px 48px" }}>
+        <div className="px-5 md:px-12" style={{ maxWidth: 1400, margin: "0 auto", paddingTop: 48, paddingBottom: 48 }}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -270,7 +270,7 @@ export default function GalleryPage() {
       </div>
 
       {/* ── Filter + Masonry grid ────────────────── */}
-      <section style={{ background: "var(--white)", padding: "48px 48px 100px" }}>
+      <section className="px-5 md:px-12" style={{ background: "var(--white)", paddingTop: 40, paddingBottom: 80 }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
 
           {/* Filter pills */}
@@ -331,10 +331,9 @@ export default function GalleryPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
+              className="grid grid-cols-2 md:grid-cols-3"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 12,
+                gap: 8,
                 alignItems: "start",
               }}
             >
