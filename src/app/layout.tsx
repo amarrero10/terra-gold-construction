@@ -49,8 +49,9 @@ export const metadata: Metadata = {
       "Over 15 years of expertise in Stucco, Lath, Drywall, Stone, Painting, and Siding. Serving residential and commercial clients across the Tampa Bay Area.",
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 
