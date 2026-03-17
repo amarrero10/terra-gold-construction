@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
+import { ChevronDown } from "lucide-react";
+import { FlowButton } from "@/components/ui/flow-button";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", weight: "400" });
 
@@ -155,11 +157,11 @@ export default function ServicesPage() {
               fontSize: 11,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--gold)",
+              color: "var(--stone)",
               marginBottom: 12,
             }}
           >
-            What We Do /
+            What We Do
           </motion.p>
           <div style={{ overflow: "hidden" }}>
             <motion.h1
@@ -261,17 +263,15 @@ export default function ServicesPage() {
                       {svc.sub}
                     </span>
                   </div>
-                  <span
+                  <ChevronDown
+                    size={18}
                     style={{
-                      color: "var(--gold)",
-                      fontSize: 20,
+                      color: "var(--stone)",
                       transition: "transform 0.3s",
-                      transform: open === i ? "rotate(45deg)" : "none",
-                      display: "inline-block",
+                      transform: open === i ? "rotate(180deg)" : "none",
+                      flexShrink: 0,
                     }}
-                  >
-                    ↗
-                  </span>
+                  />
                 </div>
 
                 {open === i && (
@@ -359,11 +359,10 @@ export default function ServicesPage() {
                 <div
                   key={s}
                   style={{
-                    padding: "16px 0",
+                    padding: "16px 0 16px 20px",
                     borderBottom: "1px solid var(--rule)",
                     borderRight:
                       (i + 1) % 4 !== 0 ? "1px solid var(--rule)" : "none",
-                    paddingLeft: i % 4 !== 0 ? 20 : 0,
                     display: "flex",
                     gap: 10,
                     alignItems: "center",
@@ -405,8 +404,7 @@ export default function ServicesPage() {
               marginBottom: 16,
             }}
           >
-            Ready to get started
-            <span style={{ color: "var(--gold)" }}>?</span>
+            Ready to get started?
           </p>
           <p
             className={`${inter.className}`}
@@ -419,22 +417,7 @@ export default function ServicesPage() {
           >
             Get your free, no-obligation estimate today.
           </p>
-          <Link
-            href="/contact"
-            style={{
-              display: "inline-block",
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: 11,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--cream)",
-              background: "var(--charcoal)",
-              padding: "14px 32px",
-              textDecoration: "none",
-            }}
-          >
-            Free Estimate
-          </Link>
+          <FlowButton href="/contact" text="Free Estimate" variant="charcoal" />
         </Reveal>
       </section>
     </>

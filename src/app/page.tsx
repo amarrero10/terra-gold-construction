@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion, useInView } from "motion/react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Marquee } from "@/components/ui/marquee";
+import { FlowButton } from "@/components/ui/flow-button";
+import { ChevronDown } from "lucide-react";
 import { Gelasio, Inter } from "next/font/google";
 
 const gelasio = Gelasio({
@@ -77,6 +79,47 @@ function Reveal({
   );
 }
 
+function CardHover({ title, body }: { title: string; body: string }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: "64px 48px",
+        background: hovered ? "var(--cream-alt)" : "var(--white)",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        transition: "background 0.25s ease, transform 0.25s ease",
+        cursor: "default",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 22,
+          fontWeight: 500,
+          color: "var(--charcoal)",
+          marginBottom: 14,
+          lineHeight: 1.2,
+        }}
+      >
+        {title}
+      </div>
+      <div
+        style={{
+          fontFamily: "'Montserrat', sans-serif",
+          fontSize: 13,
+          fontWeight: 300,
+          lineHeight: 1.8,
+          color: "var(--stone)",
+        }}
+      >
+        {body}
+      </div>
+    </div>
+  );
+}
+
 const expertise = [
   {
     title: "Stucco Systems",
@@ -104,9 +147,9 @@ const sectors = [
 ];
 
 const projects = [
-  { label: "Stucco", title: "Exterior Stucco Renovation", loc: "Tampa, FL" },
-  { label: "Transformation", title: "Lakehills Airbnb Flip", loc: "Tampa, FL" },
-  { label: "Stone", title: "Stone Veneer Facade", loc: "Brandon, FL" },
+  { label: "Stucco", title: "Exterior Stucco Renovation", loc: "Tampa, FL", img: "/pic1.webp" },
+  { label: "Transformation", title: "Lakehills Airbnb Flip", loc: "Tampa, FL", img: "/pic7.webp" },
+  { label: "Brick", title: "Brick Veneer Installation", loc: "Brandon, FL", img: "/pic5.webp" },
 ];
 
 export default function HomePage() {
@@ -280,13 +323,14 @@ export default function HomePage() {
                 fontSize: 11,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "var(--gold)",
-                marginBottom: 28,
+                color: "var(--stone)",
+                marginBottom: 8,
               }}
               className={`${inter.className}`}
             >
-              Who We Are /
+              Who We Are
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
             <p
               style={{
                 fontSize: 17,
@@ -442,7 +486,7 @@ export default function HomePage() {
                       fontSize: 11,
                       letterSpacing: "0.14em",
                       textTransform: "uppercase",
-                      color: "var(--gold)",
+                      color: "var(--stone)",
                       marginBottom: 20,
                     }}
                   >
@@ -577,18 +621,15 @@ export default function HomePage() {
                     >
                       {s.label}
                     </span>
-                    <span
+                    <ChevronDown
+                      size={18}
                       style={{
-                        color: "var(--gold)",
-                        fontSize: 20,
+                        color: "var(--stone)",
                         transition: "transform 0.3s",
-                        transform: openSector === i ? "rotate(45deg)" : "none",
-                        display: "inline-block",
-                        lineHeight: 1,
+                        transform: openSector === i ? "rotate(180deg)" : "none",
+                        flexShrink: 0,
                       }}
-                    >
-                      ↗
-                    </span>
+                    />
                   </div>
                   {openSector === i && (
                     <p
@@ -694,7 +735,7 @@ export default function HomePage() {
                       style={{
                         position: "absolute",
                         inset: 0,
-                        backgroundImage: `url('https://placehold.co/600x800/${["2E2A24", "342E26", "2A2820"][i]}/3E3A34?text=.')`,
+                        backgroundImage: `url('${p.img}')`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         filter: "grayscale(70%) contrast(1.05)",
@@ -777,11 +818,12 @@ export default function HomePage() {
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 color: "var(--gold)",
-                marginBottom: 28,
+                marginBottom: 8,
               }}
             >
-              Our Promise /
+              Our Promise
             </p>
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
             <p
               className={`${inter.className}`}
               style={{
@@ -796,26 +838,7 @@ export default function HomePage() {
               detail oriented. We offer free estimates and warranty all of our jobs. You will pay
               what is fair and get a professional job done.
             </p>
-            <Link
-              href="/contact"
-              style={{
-                display: "inline-block",
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: 12,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: "var(--cream)",
-                background: "transparent",
-                border: "1px solid rgba(245,240,232,0.3)",
-                padding: "14px 32px",
-                textDecoration: "none",
-                transition: "border-color 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(245,240,232,0.7)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(245,240,232,0.3)")}
-            >
-              Free Estimate
-            </Link>
+            <FlowButton href="/contact" text="Free Estimate" />
           </Reveal>
 
           {/* B&W photo */}
@@ -831,7 +854,7 @@ export default function HomePage() {
                 style={{
                   position: "absolute",
                   inset: 0,
-                  backgroundImage: "url('https://placehold.co/800x600/1E1C18/282420?text=.')",
+                  backgroundImage: "url('/our-promise.jpg')",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   filter: "grayscale(100%) contrast(1.1)",
@@ -849,37 +872,49 @@ export default function HomePage() {
           </Reveal>
         </div>
 
-        {/* "FIFTEEN YEARS" */}
+        {/* Stat */}
         <Reveal>
           <div
             className="px-5 md:px-14"
             style={{
-              paddingBottom: 24,
+              paddingTop: 24,
+              paddingBottom: 32,
               maxWidth: 1400,
               margin: "0 auto",
-              overflow: "hidden",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(96px, 13vw, 200px)",
-                fontWeight: 500,
-                letterSpacing: "-0.03em",
-                textTransform: "uppercase",
-                color: "var(--gold)",
-                lineHeight: 0.88,
-                whiteSpace: "nowrap",
-              }}
-            >
-              Fifteen Years
-            </h2>
+            <div style={{ display: "inline-flex", flexDirection: "column", gap: 6 }}>
+              <span
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "clamp(48px, 7vw, 100px)",
+                  fontWeight: 500,
+                  letterSpacing: "-0.03em",
+                  color: "var(--gold)",
+                  lineHeight: 1,
+                }}
+              >
+                15+ Years
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "clamp(13px, 1.4vw, 18px)",
+                  fontWeight: 300,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "rgba(245,240,232,0.5)",
+                }}
+              >
+                Delivering Quality Craftsmanship
+              </span>
+            </div>
           </div>
         </Reveal>
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          Our Certifications /
+          The Standard We Work By
       ══════════════════════════════════════════════════════ */}
       <section
         className="px-5 md:px-16"
@@ -901,58 +936,32 @@ export default function HomePage() {
                 marginBottom: 8,
               }}
             >
-              Our Certifications
+              The Standard We Work By
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 40 }} />
+            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 48 }} />
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div
-              className="grid grid-cols-2 md:grid-cols-4"
-              style={{
-                borderTop: "1px solid var(--rule)",
-                borderLeft: "1px solid var(--rule)",
-              }}
-            >
+            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 16 }}>
               {[
-                { icon: "◈", title: "Licensed & Insured", sub: "Florida certified contractor" },
-                { icon: "◆", title: "Warranty Backed", sub: "All work fully warranted" },
-                { icon: "◉", title: "Free Estimates", sub: "No-obligation assessments" },
-                { icon: "◑", title: "Family Operated", sub: "15+ years, our own team" },
+                {
+                  title: "Licensed & Insured",
+                  body: "Florida-certified contractor, fully compliant and covered for your peace of mind.",
+                },
+                {
+                  title: "Warranty Backed Work",
+                  body: "Every project is backed by our workmanship guarantee—done right the first time.",
+                },
+                {
+                  title: "Free, No-Pressure Estimates",
+                  body: "Clear, honest pricing with zero obligation.",
+                },
+                {
+                  title: "Family-Owned & Operated",
+                  body: "15+ years of hands-on experience, with work completed by our own team.",
+                },
               ].map((c) => (
-                <div
-                  key={c.title}
-                  style={{
-                    padding: "56px 40px",
-                    borderRight: "1px solid var(--rule)",
-                    borderBottom: "1px solid var(--rule)",
-                  }}
-                >
-                  <div style={{ fontSize: 28, color: "var(--gold)", marginBottom: 24 }}>
-                    {c.icon}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: 26,
-                      fontWeight: 400,
-                      color: "var(--charcoal)",
-                      marginBottom: 10,
-                    }}
-                  >
-                    {c.title}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "'Montserrat', sans-serif",
-                      fontSize: 14,
-                      fontWeight: 300,
-                      color: "var(--stone)",
-                    }}
-                  >
-                    {c.sub}
-                  </div>
-                </div>
+                <CardHover key={c.title} title={c.title} body={c.body} />
               ))}
             </div>
           </Reveal>

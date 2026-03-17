@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { HoverButton } from "@/components/ui/hover-glow-button";
 
 const links = [
   { href: "/services", label: "Services" },
@@ -71,25 +72,16 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:block">
-            <Link
-              href="/contact"
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: 13,
-                fontWeight: 500,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: "#0a0a0a",
-                background: "var(--gold)",
-                padding: "12px 26px",
-                textDecoration: "none",
-                display: "inline-block",
-                transition: "opacity 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-            >
-              Free Estimate
+            <Link href="/contact" style={{ textDecoration: "none" }}>
+              <HoverButton
+                glowColor="#7a5c00"
+                backgroundColor="#d4af37"
+                textColor="#0a0a0a"
+                hoverTextColor="#0a0a0a"
+                className="text-[11px] font-medium tracking-[0.14em] uppercase px-6 py-3"
+              >
+                Free Estimate
+              </HoverButton>
             </Link>
           </div>
 
