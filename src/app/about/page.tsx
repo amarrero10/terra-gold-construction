@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
 
@@ -576,31 +577,15 @@ export default function AboutPage() {
               </h2>
             </div>
 
-            {/* TG seal */}
-            <div
-              style={{
-                width: 80,
-                height: 80,
-                borderRadius: "50%",
-                border: "1px solid var(--charcoal)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(245,240,232,0.9)",
-                flexShrink: 0,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 20,
-                  fontWeight: 600,
-                  color: "var(--gold)",
-                }}
-              >
-                TG
-              </span>
+            {/* Logo */}
+            <div style={{ flexShrink: 0 }}>
+              <Image
+                src="/logo.png"
+                alt="TerraGold Construction Services"
+                width={180}
+                height={46}
+                style={{ height: 46, width: "auto", objectFit: "contain" }}
+              />
             </div>
           </div>
         </Reveal>

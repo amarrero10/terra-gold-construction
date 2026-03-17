@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const serviceLinks = [
   "Stucco & Lath", "Drywall Repair & Install", "Stone & Brick Veneer",
@@ -33,20 +34,14 @@ export default function Footer() {
       >
         {/* Brand */}
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-            <div
-              style={{
-                width: 32, height: 32, border: "1px solid var(--gold)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}
-            >
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, fontWeight: 600, color: "var(--gold)", letterSpacing: "0.05em" }}>
-                TG
-              </span>
-            </div>
-            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--cream)" }}>
-              TerraGold Construction
-            </span>
+          <div style={{ marginBottom: 20 }}>
+            <Image
+              src="/logo.png"
+              alt="TerraGold Construction Services"
+              width={200}
+              height={50}
+              style={{ height: 44, width: "auto", objectFit: "contain" }}
+            />
           </div>
           <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 13, fontWeight: 300, lineHeight: 1.8, color: "rgba(245,240,232,0.5)", maxWidth: 280 }}>
             Over 15 years mastering Stucco, Lath, Drywall, Stone, Painting,

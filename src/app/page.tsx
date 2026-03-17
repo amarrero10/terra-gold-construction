@@ -117,7 +117,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════
           HERO — full viewport photo + large serif heading
       ══════════════════════════════════════════════════════ */}
-      <section style={{ paddingTop: 68 }}>
+      <section style={{ paddingTop: 72 }}>
         {/* Full-viewport photo */}
         <div
           style={{

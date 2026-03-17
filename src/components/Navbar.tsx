@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/services",      label: "Services" },
-  { href: "/about",         label: "About" },
-  { href: "/gallery",       label: "Gallery" },
-  { href: "/testimonials",  label: "Testimonials" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/testimonials", label: "Testimonials" },
 ];
 
 export default function Navbar() {
@@ -20,51 +21,25 @@ export default function Navbar() {
       <header
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: "var(--cream)",
-          borderBottom: "1px solid var(--rule)",
-          height: "68px",
+          background: "#0a0a0a",
+          borderBottom: "1px solid rgba(212,175,55,0.18)",
+          height: "72px",
         }}
       >
         <div
-          className="mx-auto px-8 flex items-center justify-between h-full"
+          className="mx-auto px-16 flex items-center justify-between h-full"
           style={{ maxWidth: "1400px" }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div
-              style={{
-                width: 32,
-                height: 32,
-                border: "1px solid var(--gold)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  color: "var(--gold)",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                TG
-              </span>
-            </div>
-            <span
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: 13,
-                fontWeight: 400,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--charcoal)",
-              }}
-            >
-              TerraGold
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="TerraGold Construction Services"
+              width={220}
+              height={56}
+              style={{ height: 52, width: "auto", objectFit: "contain", marginLeft: 10 }}
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -79,16 +54,14 @@ export default function Navbar() {
                   fontWeight: 400,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: path === l.href ? "var(--gold)" : "var(--stone)",
+                  color: path === l.href ? "var(--gold)" : "rgba(245,240,232,0.55)",
                   textDecoration: "none",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "var(--charcoal)")
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.color =
-                    path === l.href ? "var(--gold)" : "var(--stone)")
+                    path === l.href ? "var(--gold)" : "rgba(245,240,232,0.55)")
                 }
               >
                 {l.label}
@@ -106,14 +79,14 @@ export default function Navbar() {
                 fontWeight: 500,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "var(--cream)",
-                background: "var(--charcoal)",
+                color: "#0a0a0a",
+                background: "var(--gold)",
                 padding: "10px 22px",
                 textDecoration: "none",
                 display: "inline-block",
                 transition: "opacity 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.82")}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
               Free Estimate
@@ -121,10 +94,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile burger */}
-          <button
-            className="md:hidden flex flex-col gap-[5px] p-2"
-            onClick={() => setOpen(!open)}
-          >
+          <button className="md:hidden flex flex-col gap-1.25 p-2" onClick={() => setOpen(!open)}>
             {[0, 1, 2].map((i) => (
               <span
                 key={i}
@@ -132,17 +102,17 @@ export default function Navbar() {
                   display: "block",
                   width: i === 1 ? 16 : 22,
                   height: 1,
-                  background: "var(--charcoal)",
+                  background: "rgba(245,240,232,0.8)",
                   transition: "all 0.25s",
                   transformOrigin: "center",
                   transform:
                     open && i === 0
                       ? "rotate(45deg) translate(4px,4px)"
                       : open && i === 2
-                      ? "rotate(-45deg) translate(4px,-4px)"
-                      : open && i === 1
-                      ? "scaleX(0)"
-                      : "none",
+                        ? "rotate(-45deg) translate(4px,-4px)"
+                        : open && i === 1
+                          ? "scaleX(0)"
+                          : "none",
                 }}
               />
             ))}
@@ -156,8 +126,8 @@ export default function Navbar() {
           position: "fixed",
           inset: 0,
           zIndex: 40,
-          background: "var(--cream)",
-          paddingTop: 68,
+          background: "#0a0a0a",
+          paddingTop: 72,
           transition: "opacity 0.3s, transform 0.3s",
           opacity: open ? 1 : 0,
           transform: open ? "none" : "translateY(-6px)",
@@ -171,7 +141,7 @@ export default function Navbar() {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: 40,
-              color: "var(--charcoal)",
+              color: "rgba(245,240,232,0.9)",
             }}
           >
             Home
@@ -184,7 +154,7 @@ export default function Navbar() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: 40,
-                color: path === l.href ? "var(--gold)" : "var(--charcoal)",
+                color: path === l.href ? "var(--gold)" : "rgba(245,240,232,0.9)",
               }}
             >
               {l.label}
@@ -198,8 +168,8 @@ export default function Navbar() {
               fontSize: 12,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--cream)",
-              background: "var(--charcoal)",
+              color: "#0a0a0a",
+              background: "var(--gold)",
               padding: "14px 28px",
               marginTop: 8,
               display: "inline-block",
