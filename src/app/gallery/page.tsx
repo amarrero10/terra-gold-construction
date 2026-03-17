@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 /* ─────────────────────────────────────────────
    Project data — real photos, proper categories
@@ -35,15 +36,152 @@ const allProjects = [
 
 const cats = ["All", "Stucco", "Stone", "Transformation", "Siding"];
 
+type Project = typeof allProjects[number];
+
+/* ─────────────────────────────────────────────
+   Lightbox
+───────────────────────────────────────────── */
+function Lightbox({ project, onClose }: { project: Project; onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1000,
+        background: "rgba(10,10,10,0.92)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "24px",
+      }}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          background: "rgba(255,255,255,0.08)",
+          border: "none",
+          borderRadius: "50%",
+          width: 44,
+          height: 44,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          color: "rgba(245,240,232,0.8)",
+          transition: "background 0.2s",
+          zIndex: 10,
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.16)")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
+      >
+        <X size={20} />
+      </button>
+
+      {/* Image container */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.94 }}
+        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative",
+          maxWidth: "90vw",
+          maxHeight: "85vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <img
+          src={project.src}
+          alt={project.title}
+          style={{
+            maxWidth: "90vw",
+            maxHeight: "78vh",
+            objectFit: "contain",
+            display: "block",
+          }}
+        />
+        {/* Caption */}
+        <div
+          style={{
+            paddingTop: 14,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+            gap: 16,
+          }}
+        >
+          <div>
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: 9,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--gold)",
+                display: "block",
+                marginBottom: 4,
+              }}
+            >
+              {project.cat}
+            </span>
+            <span
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 22,
+                fontWeight: 400,
+                color: "rgba(245,240,232,0.9)",
+              }}
+            >
+              {project.title}
+            </span>
+          </div>
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: 11,
+              color: "rgba(245,240,232,0.4)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.loc}
+          </span>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 /* ─────────────────────────────────────────────
    Per-image animated card
 ───────────────────────────────────────────── */
 interface ProjectCardProps {
-  project: typeof allProjects[number];
+  project: Project;
   delay?: number;
+  onClick: () => void;
 }
 
-function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
+function ProjectCard({ project, delay = 0, onClick }: ProjectCardProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-40px" });
   const [loaded, setLoaded] = useState(false);
@@ -58,12 +196,13 @@ function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
       style={{ width: "100%" }}
     >
       <div
+        onClick={onClick}
         style={{
           position: "relative",
           width: "100%",
           aspectRatio: String(project.ratio),
           overflow: "hidden",
-          cursor: "pointer",
+          cursor: "zoom-in",
           background: "#1e1c18",
         }}
         onMouseEnter={() => setHovered(true)}
@@ -82,7 +221,7 @@ function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
           )}
         />
 
-        {/* Gold color tint overlay — always subtle */}
+        {/* Gold color tint overlay */}
         <div
           style={{
             position: "absolute",
@@ -143,7 +282,7 @@ function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* Category badge — top left */}
+        {/* Category badge */}
         <div
           style={{
             position: "absolute",
@@ -190,11 +329,11 @@ function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
 ───────────────────────────────────────────── */
 export default function GalleryPage() {
   const [active, setActive] = useState("All");
+  const [lightbox, setLightbox] = useState<Project | null>(null);
 
   const filtered =
     active === "All" ? allProjects : allProjects.filter((p) => p.cat === active);
 
-  // Distribute into 3 masonry columns
   const cols: (typeof allProjects)[] = [[], [], []];
   filtered.forEach((p, i) => cols[i % 3].push(p));
 
@@ -206,6 +345,13 @@ export default function GalleryPage() {
           100% { background-position: -200% 0; }
         }
       `}</style>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <Lightbox project={lightbox} onClose={() => setLightbox(null)} />
+        )}
+      </AnimatePresence>
 
       {/* ── Page header ─────────────────────────── */}
       <div
@@ -225,12 +371,13 @@ export default function GalleryPage() {
               fontSize: 11,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--gold)",
-              marginBottom: 12,
+              color: "var(--stone)",
+              marginBottom: 8,
             }}
           >
-            Our Work /
+            Our Work
           </motion.p>
+          <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 12 }} />
           <div style={{ overflow: "hidden" }}>
             <motion.h1
               initial={{ y: "100%" }}
@@ -332,21 +479,16 @@ export default function GalleryPage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               className="grid grid-cols-2 md:grid-cols-3"
-              style={{
-                gap: 8,
-                alignItems: "start",
-              }}
+              style={{ gap: 8, alignItems: "start" }}
             >
               {cols.map((col, colIdx) => (
-                <div
-                  key={colIdx}
-                  style={{ display: "flex", flexDirection: "column", gap: 12 }}
-                >
+                <div key={colIdx} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   {col.map((project, rowIdx) => (
                     <ProjectCard
                       key={project.id}
                       project={project}
                       delay={rowIdx * 0.06}
+                      onClick={() => setLightbox(project)}
                     />
                   ))}
                 </div>

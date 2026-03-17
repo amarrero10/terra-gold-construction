@@ -1,11 +1,33 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { FlowButton } from "@/components/ui/flow-button";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", weight: "400" });
+
+function CountUp({ target, suffix = "", duration = 1800 }: { target: number; suffix?: string; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, target, duration]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -158,13 +180,13 @@ export default function TestimonialsPage() {
       <section style={{ background: "var(--cream)", borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)" }}>
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ maxWidth: 1400, margin: "0 auto", borderLeft: "1px solid var(--rule)" }}>
           {[
-            { v: "5.0", l: "Average Rating" },
-            { v: "100+", l: "Verified Reviews" },
-            { v: "100%", l: "Would Recommend" },
+            { target: 5, suffix: ".0", l: "Average Rating" },
+            { target: 100, suffix: "+", l: "Verified Reviews" },
+            { target: 100, suffix: "%", l: "Would Recommend" },
           ].map((s) => (
             <div key={s.l} style={{ padding: "48px 40px", borderRight: "1px solid var(--rule)", textAlign: "center" }}>
               <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 56, fontWeight: 400, color: "var(--charcoal)", lineHeight: 1 }}>
-                {s.v}
+                <CountUp target={s.target} suffix={s.suffix} />
               </div>
               <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--stone)", marginTop: 8 }}>
                 {s.l}
@@ -183,12 +205,7 @@ export default function TestimonialsPage() {
           <p className={`${inter.className}`} style={{ fontSize: 14, fontWeight: 300, color: "var(--stone)", marginBottom: 32 }}>
             Get your free, no-obligation estimate today.
           </p>
-          <Link
-            href="/contact"
-            style={{ display: "inline-block", fontFamily: "'Montserrat', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--cream)", background: "var(--charcoal)", padding: "14px 32px", textDecoration: "none" }}
-          >
-            Free Estimate
-          </Link>
+          <FlowButton href="/contact" text="Free Estimate" variant="charcoal" />
         </Reveal>
       </section>
     </>

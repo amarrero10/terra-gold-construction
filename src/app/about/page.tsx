@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "motion/react";
@@ -29,69 +29,106 @@ function Reveal({
   );
 }
 
-const values = [
-  {
-    cat: "Our Mission",
-    name: "Family Operated",
-    role: "No sub-contractors, ever",
-    desc: "TerraGold counts on its own team of professionals. We assess the damage, get the work done, and leave. No middlemen.",
-  },
-  {
-    cat: "Our Mission",
-    name: "Fair Pricing",
-    role: "Transparent, competitive quotes",
-    desc: "Our promise is that we will charge what is fair while maintaining the highest quality of work and standards.",
-  },
-  {
-    cat: "Our Mission",
-    name: "Warranty Backed",
-    role: "Every job fully warranted",
-    desc: "We stand behind every project. If something is not right, we will make it right — no questions asked.",
-  },
-];
-
-const team = [
-  {
-    cat: "Leadership",
-    name: "J. Goldstein",
-    role: "Owner & Founder",
-  },
-];
-
-const milestones = [
-  { year: "2009", text: "TerraGold Construction Services founded." },
-  { year: "2012", text: "Expanded to full stone veneer and brick installations." },
-  { year: "2016", text: "Launched home transformation division." },
-  { year: "2019", text: "Relocated and expanded to Tampa Bay Area, FL." },
-  { year: "2022", text: "EIFS synthetic stucco certification achieved." },
-  { year: "2024", text: "500+ completed projects across Tampa Bay." },
-];
+function CardHover({ title, body }: { title: string; body: string }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: "64px 48px",
+        borderRight: "1px solid var(--rule)",
+        borderBottom: "1px solid var(--rule)",
+        background: hovered ? "var(--cream-alt)" : "var(--white)",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        transition: "background 0.25s ease, transform 0.25s ease",
+        cursor: "default",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 22,
+          fontWeight: 500,
+          color: "var(--charcoal)",
+          marginBottom: 14,
+          lineHeight: 1.2,
+        }}
+      >
+        {title}
+      </div>
+      <div
+        style={{
+          fontFamily: "'Montserrat', sans-serif",
+          fontSize: 13,
+          fontWeight: 300,
+          lineHeight: 1.8,
+          color: "var(--stone)",
+        }}
+      >
+        {body}
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   return (
     <>
       {/* ══════════════════════════════════════════════════════
-          Header — "Our Company/" + "Built on" bleeds off right
-          (mirrors Kreisson "Our People/" + "Built c…")
+          Header — "Our Company" foreground, "Built on Craftsmanship" background
       ══════════════════════════════════════════════════════ */}
       <div
         style={{
           paddingTop: 84,
           background: "var(--cream)",
           borderBottom: "1px solid var(--rule)",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
+        {/* Background watermark */}
         <div
-          className="grid grid-cols-1 md:grid-cols-[340px_1fr] px-5 md:px-12"
           style={{
-            maxWidth: 1400,
-            margin: "0 auto",
-            paddingTop: 48,
-            gap: 40,
-            alignItems: "start",
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            zIndex: 0,
           }}
         >
-          {/* Left: heading */}
+          <span
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontStyle: "italic",
+              fontSize: "clamp(56px, 10vw, 140px)",
+              fontWeight: 300,
+              color: "#a07c20",
+              opacity: 0.15,
+              filter: "blur(1px)",
+              whiteSpace: "nowrap",
+              letterSpacing: "-0.02em",
+              userSelect: "none",
+            }}
+          >
+            Built on Craftsmanship
+          </span>
+        </div>
+
+        {/* Foreground content */}
+        <div
+          className="px-5 md:px-12"
+          style={{
+            maxWidth: 760,
+            margin: "0 auto",
+            paddingTop: 64,
+            paddingBottom: 64,
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,7 +137,7 @@ export default function AboutPage() {
             <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 32,
+                fontSize: 36,
                 fontWeight: 400,
                 color: "var(--charcoal)",
                 marginBottom: 8,
@@ -108,93 +145,66 @@ export default function AboutPage() {
             >
               Our Company
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 12 }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
+                marginBottom: 28,
+              }}
+            />
             <p
               className={`${inter.className}`}
               style={{
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: 300,
-                lineHeight: 1.8,
+                lineHeight: 1.9,
                 color: "var(--stone)",
-                marginBottom: 12,
+                marginBottom: 20,
               }}
             >
-              TerraGold&apos;s solution-driven outlook is the product of an
-              innovative and deeply committed culture — built on craftsmanship
-              and integrity since 2009.
+              TerraGold was built on a simple principle—do the work right, and
+              stand behind it.
             </p>
-          </motion.div>
-
-          {/* Right: large gold "Built on" bleeds off-screen */}
-          <div style={{ overflow: "hidden" }}>
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.85,
-                delay: 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
+            <p
+              className={`${inter.className}`}
+              style={{
+                fontSize: 15,
+                fontWeight: 300,
+                lineHeight: 1.9,
+                color: "var(--stone)",
+                marginBottom: 36,
               }}
+            >
+              For over 15 years, we&apos;ve delivered high-quality craftsmanship
+              with a hands-on, in-house team committed to precision,
+              reliability, and long-term results.
+            </p>
+            <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontStyle: "italic",
-                fontSize: "clamp(64px, 9vw, 128px)",
-                fontWeight: 300,
-                color: "var(--gold)",
-                lineHeight: 0.9,
-                whiteSpace: "nowrap",
-                opacity: 0.55,
+                fontSize: 20,
+                fontWeight: 400,
+                color: "var(--charcoal)",
+                letterSpacing: "0.01em",
               }}
             >
-              Built on
-            </motion.div>
-          </div>
-        </div>
-
-        {/* "Craftsmanship" continuation line */}
-        <div
-          className="px-5 md:px-12"
-          style={{
-            maxWidth: 1400,
-            margin: "0 auto",
-            paddingBottom: 48,
-            overflow: "hidden",
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.85,
-              delay: 0.25,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontStyle: "italic",
-              fontSize: "clamp(64px, 9vw, 128px)",
-              fontWeight: 300,
-              color: "var(--gold)",
-              lineHeight: 0.9,
-              whiteSpace: "nowrap",
-              textAlign: "right",
-              opacity: 0.55,
-            }}
-          >
-            Craftsmanship
+              Led by experience. Built by professionals.
+            </p>
           </motion.div>
         </div>
       </div>
 
       {/* ══════════════════════════════════════════════════════
-          "Meet Our Team /" — value/team grid
+          Meet the Team
       ══════════════════════════════════════════════════════ */}
       <section
         className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          paddingTop: 56,
-          paddingBottom: 56,
+          paddingTop: 72,
+          paddingBottom: 72,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -209,168 +219,95 @@ export default function AboutPage() {
                 marginBottom: 8,
               }}
             >
-              Meet the Team
+              Meet the Owner
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 40 }} />
-          </Reveal>
-
-          {/* Category label */}
-          <div
-            style={{
-              borderTop: "1px solid var(--rule)",
-              paddingTop: 12,
-              marginBottom: 24,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: 10,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--stone-lt)",
-              }}
-            >
-              Leadership
-            </span>
-          </div>
-
-          {/* Team member */}
-          <Reveal>
             <div
-              className="grid grid-cols-2 md:grid-cols-4"
               style={{
-                gap: 24,
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
                 marginBottom: 48,
               }}
+            />
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div
+              className="grid grid-cols-1 md:grid-cols-[480px_1fr]"
+              style={{ gap: 56, alignItems: "start" }}
             >
-              <div>
-                {/* B&W portrait placeholder */}
+              {/* Large image */}
+              <div
+                style={{
+                  aspectRatio: "4/3",
+                  overflow: "hidden",
+                  position: "relative",
+                  background: "#C8C0B0",
+                }}
+              >
                 <div
                   style={{
-                    aspectRatio: "3/4",
-                    background: "#C8C0B0",
-                    marginBottom: 16,
-                    overflow: "hidden",
-                    position: "relative",
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage:
+                      "url('https://placehold.co/960x720/B0A898/C0B8A8?text=.')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center top",
+                    filter: "grayscale(100%) contrast(1.05)",
                   }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage:
-                        "url('https://placehold.co/300x400/B0A898/C0B8A8?text=.')",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center top",
-                      filter: "grayscale(100%) contrast(1.05)",
-                    }}
-                  />
-                </div>
+                />
+              </div>
+
+              {/* Text */}
+              <div style={{ paddingTop: 8 }}>
                 <p
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: 18,
+                    fontSize: 32,
                     fontWeight: 400,
                     color: "var(--charcoal)",
-                    marginBottom: 2,
+                    marginBottom: 4,
+                    lineHeight: 1.1,
                   }}
                 >
-                  J. Goldstein
+                  Joseph Goldstein
                 </p>
                 <p
                   className={`${inter.className}`}
                   style={{
                     fontSize: 11,
-                    letterSpacing: "0.08em",
-                    color: "var(--stone)",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#a07c20",
+                    marginBottom: 24,
                   }}
                 >
                   Owner &amp; Founder
                 </p>
+                <div
+                  style={{
+                    width: 36,
+                    height: 1,
+                    background: "var(--rule)",
+                    marginBottom: 24,
+                  }}
+                />
+                <p
+                  className={`${inter.className}`}
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 300,
+                    lineHeight: 1.9,
+                    color: "var(--stone)",
+                  }}
+                >
+                  With over 15 years leading TerraGold Construction Services,
+                  Joseph Goldstein has built a reputation for hands-on quality
+                  and honest work. Every project is overseen personally—no
+                  shortcuts, no sub-contractors, and no compromises on
+                  craftsmanship.
+                </p>
               </div>
-            </div>
-          </Reveal>
-
-          {/* Divider + Crew category */}
-          <div
-            style={{
-              borderTop: "1px solid var(--rule)",
-              paddingTop: 12,
-              marginBottom: 24,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: 10,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--stone-lt)",
-              }}
-            >
-              Field Crew
-            </span>
-          </div>
-
-          <Reveal delay={0.08}>
-            <div
-              className="grid grid-cols-2 md:grid-cols-4"
-              style={{
-                gap: 24,
-                marginBottom: 48,
-              }}
-            >
-              {[
-                { name: "Stucco Specialists", role: "Lath & Stucco Division" },
-                { name: "Drywall Team",        role: "Interior Division" },
-                { name: "Stone Crew",          role: "Stone & Brick Division" },
-                { name: "Paint Team",          role: "Interior/Exterior Painting" },
-              ].map((m, i) => (
-                <div key={m.name}>
-                  <div
-                    style={{
-                      aspectRatio: "3/4",
-                      background: "#C0B8A8",
-                      marginBottom: 12,
-                      overflow: "hidden",
-                      position: "relative",
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        backgroundImage: `url('https://placehold.co/300x400/${["B8B0A0", "B0A898", "A8A090", "A09888"][i]}/C0B8A8?text=.')`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center top",
-                        filter: "grayscale(100%) contrast(1.05)",
-                      }}
-                    />
-                  </div>
-                  <p
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: 18,
-                      fontWeight: 400,
-                      color: "var(--charcoal)",
-                      marginBottom: 2,
-                    }}
-                  >
-                    {m.name}
-                  </p>
-                  <p
-                    className={`${inter.className}`}
-                    style={{
-                      fontSize: 11,
-                      letterSpacing: "0.08em",
-                      color: "var(--stone)",
-                    }}
-                  >
-                    {m.role}
-                  </p>
-                </div>
-              ))}
             </div>
           </Reveal>
         </div>
@@ -391,7 +328,7 @@ export default function AboutPage() {
         <div
           className="grid grid-cols-[40px_1fr] md:grid-cols-[64px_1fr]"
           style={{
-            maxWidth: 1400,
+            maxWidth: 600,
             margin: "0 auto",
             gap: 24,
             alignItems: "start",
@@ -407,7 +344,7 @@ export default function AboutPage() {
                 lineHeight: 0.8,
               }}
             >
-              "
+              &ldquo;
             </span>
           </Reveal>
           <Reveal delay={0.08}>
@@ -420,11 +357,10 @@ export default function AboutPage() {
                 color: "var(--charcoal)",
                 lineHeight: 1.35,
                 marginBottom: 20,
+                maxWidth: 450,
               }}
             >
-              You work to unique requirements. We offer unique solutions. Our
-              team collaborates with key stakeholders across your project to
-              ensure all guidance is considered, practical, and thorough.
+              We show up, do the work right, and stand behind it. That&apos;s how we&apos;ve built our reputation.
             </p>
             <p
               className={`${inter.className}`}
@@ -435,21 +371,21 @@ export default function AboutPage() {
                 color: "var(--stone)",
               }}
             >
-              — J. Goldstein, Founder, TerraGold Construction Services
+              — Joseph Goldstein, Founder, TerraGold Construction Services
             </p>
           </Reveal>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          Our Certifications / (mirrors "Our Memberships/")
+          The Standard We Work By
       ══════════════════════════════════════════════════════ */}
       <section
         className="px-5 md:px-12"
         style={{
           background: "var(--cream)",
-          paddingTop: 56,
-          paddingBottom: 56,
+          paddingTop: 72,
+          paddingBottom: 72,
           borderTop: "1px solid var(--rule)",
         }}
       >
@@ -458,50 +394,51 @@ export default function AboutPage() {
             <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 30,
+                fontSize: 48,
                 fontWeight: 400,
                 color: "var(--charcoal)",
                 marginBottom: 8,
               }}
             >
-              Our Certifications
+              The Standard We Work By
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 32 }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
+                marginBottom: 48,
+              }}
+            />
           </Reveal>
 
           <Reveal delay={0.08}>
             <div
+              className="grid grid-cols-2 md:grid-cols-4"
               style={{
-                display: "flex",
-                gap: 40,
-                alignItems: "center",
-                flexWrap: "wrap",
-                paddingTop: 32,
                 borderTop: "1px solid var(--rule)",
+                borderLeft: "1px solid var(--rule)",
               }}
             >
               {[
-                "Licensed Florida Contractor",
-                "Fully Insured",
-                "EIFS Certified",
-                "Warranty on All Work",
-                "BBB Accredited",
-              ].map((cert) => (
-                <div
-                  key={cert}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: 12,
-                    letterSpacing: "0.08em",
-                    color: "var(--stone)",
-                  }}
-                >
-                  <span style={{ color: "var(--gold)", fontSize: 16 }}>◈</span>
-                  {cert}
-                </div>
+                {
+                  title: "Licensed & Insured",
+                  body: "Florida-certified contractor, fully compliant and covered for your peace of mind.",
+                },
+                {
+                  title: "Warranty Backed Work",
+                  body: "Every project is backed by our workmanship guarantee—done right the first time.",
+                },
+                {
+                  title: "Free, No-Pressure Estimates",
+                  body: "Clear, honest pricing with zero obligation.",
+                },
+                {
+                  title: "Family-Owned & Operated",
+                  body: "15+ years of hands-on experience, with work completed by our own team.",
+                },
+              ].map((c) => (
+                <CardHover key={c.title} title={c.title} body={c.body} />
               ))}
             </div>
           </Reveal>
@@ -509,7 +446,7 @@ export default function AboutPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          Contact CTA (mirrors the Kreisson bottom contact band)
+          Contact CTA
       ══════════════════════════════════════════════════════ */}
       <div
         style={{
@@ -583,7 +520,6 @@ export default function AboutPage() {
               </h2>
             </div>
 
-            {/* Logo */}
             <div style={{ flexShrink: 0 }}>
               <Image
                 src="/logo.png"
