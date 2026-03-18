@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Link from "next/link";
 import { FlowButton } from "@/components/ui/flow-button";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
@@ -185,12 +184,13 @@ export default function TestimonialsPage() {
               fontSize: 11,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--gold)",
-              marginBottom: 12,
+              color: "var(--charcoal)",
+              marginBottom: 8,
             }}
           >
-            Rave Reviews /
+            Rave Reviews
           </motion.p>
+          <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 12 }} />
           <div style={{ overflow: "hidden" }}>
             <motion.h1
               initial={{ y: "100%" }}

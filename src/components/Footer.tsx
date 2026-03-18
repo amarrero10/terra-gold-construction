@@ -107,7 +107,7 @@ export default function Footer() {
               </p>
               {g.lines.map((line) =>
                 line.href ? (
-                  <a key={line.text} href={line.href} style={{ display: "block", fontFamily: "'Montserrat', sans-serif", fontSize: 13, fontWeight: 300, color: "rgba(245,240,232,0.5)", textDecoration: "none", lineHeight: 1.7 }}>{line.text}</a>
+                  <a key={line.text} href={line.href} style={{ display: "block", fontFamily: "'Montserrat', sans-serif", fontSize: 13, fontWeight: 300, color: "rgba(245,240,232,0.5)", textDecoration: "none", lineHeight: 1.7, transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(245,240,232,0.7)")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,240,232,0.5)")}>{line.text}</a>
                 ) : (
                   <p key={line.text} style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 13, fontWeight: 300, color: "rgba(245,240,232,0.5)", lineHeight: 1.7 }}>{line.text}</p>
                 )

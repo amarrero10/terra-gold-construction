@@ -189,19 +189,6 @@ export default function ContactPage() {
           {/* Left: contact details */}
           <Reveal>
             <div>
-              <p
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 28,
-                  fontWeight: 400,
-                  color: "var(--charcoal)",
-                  marginBottom: 8,
-                }}
-              >
-                Get in Touch
-              </p>
-              <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
-
               {[
                 {
                   label: "Phone",
@@ -229,7 +216,9 @@ export default function ContactPage() {
                 {
                   label: "Hours",
                   items: [
-                    { text: "Mon – Fri: 8:00am – 2:00pm", href: null },
+                    { text: "Mon – Fri: 8:00am – 5:00pm", href: null },
+                    { text: "Sat: 8:00am – 2:00pm", href: null },
+                    { text: "Sun: Closed", href: null },
                   ],
                 },
               ].map((g) => (

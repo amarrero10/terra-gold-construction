@@ -34,10 +34,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     >
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
         {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex justify-start pt-16 md:pt-56 md:gap-10"
-          >
+          <div key={index} className="flex justify-start pt-16 md:pt-56 md:gap-10">
             {/* Left — sticky: circle on line + large step number */}
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-64 self-start max-w-xs lg:max-w-sm md:w-full">
               {/* Circle dot centered on the vertical line */}
@@ -128,7 +125,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {/* Animated vertical line */}
         <div
           style={{ height: height + "px" }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+          className="absolute md:left-8 left-8 top-0 overflow-hidden w-0.5 mask-[linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
         >
           <div
             className="absolute inset-0"
