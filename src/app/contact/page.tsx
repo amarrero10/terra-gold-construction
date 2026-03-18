@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
+import { FloatingLabelInput, FloatingLabelTextarea } from "@/components/ui/floating-label";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", weight: "400" });
 
@@ -41,113 +42,91 @@ const services = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "", email: "", phone: "", service: "", message: "",
   });
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+
+  function validate() {
+    const e: typeof errors = {};
+    if (!form.name.trim()) e.name = "Full name is required.";
+    if (!form.email.trim()) {
+      e.email = "Email address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      e.email = "Please enter a valid email address.";
+    }
+    if (!form.message.trim()) e.message = "Project details are required.";
+    return e;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "c2bd50fb-e7f6-417f-a697-bb567b178a24",
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          message: form.message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setSubmitError("Something went wrong. Please try again or call us directly.");
+      }
+    } catch {
+      setSubmitError("Unable to send your message. Please try again or call us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <>
       {/* ══════════════════════════════════════════════════════
-          HERO — B&W full-bleed photo + "CONTACT US" overlay
-          (mirrors the Kreisson reference exactly)
+          Page header
       ══════════════════════════════════════════════════════ */}
       <div
         style={{
           paddingTop: 84,
-          position: "relative",
-          height: "70vh",
-          minHeight: 480,
-          overflow: "hidden",
-          background: "#E8E3DA",
+          background: "var(--cream)",
+          borderBottom: "1px solid var(--rule)",
         }}
       >
-        {/* Background photo — B&W treatment */}
         <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "url('https://placehold.co/1600x900/C8C0B4/D0C8BC?text=.')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 40%",
-            filter: "grayscale(100%) contrast(0.9) brightness(1.05)",
-          }}
-        />
-
-        {/* Subtle light overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "rgba(245,240,232,0.18)",
-          }}
-        />
-
-        {/* "Protect your project" — top-right label */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          style={{
-            position: "absolute",
-            top: 40,
-            right: 48,
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: 12,
-            fontWeight: 300,
-            letterSpacing: "0.08em",
-            color: "var(--charcoal)",
-          }}
+          className="px-5 md:px-12"
+          style={{ maxWidth: 1400, margin: "0 auto", paddingTop: 48, paddingBottom: 48 }}
         >
-          Protect your project
-        </motion.p>
-
-        {/* Arrow — top-right corner decoration */}
-        <motion.div
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          style={{
-            position: "absolute",
-            top: 80,
-            right: 48,
-            width: 28,
-            height: 28,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1px solid var(--charcoal)",
-          }}
-        >
-          <span style={{ fontSize: 14, color: "var(--charcoal)" }}>↙</span>
-        </motion.div>
-
-        {/* "CONTACT US" — massive serif text */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 48,
-            left: 0,
-            right: 0,
-            padding: "0 48px",
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: 12,
-              letterSpacing: "0.12em",
+              fontSize: 11,
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
               color: "var(--stone)",
-              marginBottom: 8,
+              marginBottom: 12,
             }}
           >
             Free No-Obligation Estimates
-          </motion.div>
-
+          </motion.p>
           <div style={{ overflow: "hidden" }}>
             <motion.h1
               initial={{ y: "100%" }}
@@ -155,85 +134,34 @@ export default function ContactPage() {
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(64px, 10vw, 140px)",
+                fontSize: "clamp(48px, 6vw, 80px)",
                 fontWeight: 400,
                 letterSpacing: "-0.03em",
-                lineHeight: 0.92,
-                color: "var(--charcoal)",
                 textTransform: "uppercase",
+                color: "var(--charcoal)",
+                lineHeight: 0.95,
               }}
             >
               Contact Us
             </motion.h1>
           </div>
-
-          <motion.div
+          <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            style={{ marginTop: 24 }}
-          >
-            <a
-              href="#contact-form"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: 11,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: "var(--charcoal)",
-                textDecoration: "none",
-                border: "1px solid var(--charcoal)",
-                padding: "10px 20px",
-              }}
-            >
-              Get in Touch <span>›</span>
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Circular TG seal — bottom left of photo */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 48,
-            right: 48,
-            width: 88,
-            height: 88,
-            borderRadius: "50%",
-            border: "1px solid var(--charcoal)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(245,240,232,0.9)",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 22,
-              fontWeight: 600,
-              color: "var(--gold)",
-              lineHeight: 1,
-            }}
-          >
-            TG
-          </span>
-          <span
+            transition={{ duration: 0.6, delay: 0.3 }}
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: 7,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--charcoal)",
-              marginTop: 3,
+              fontSize: 14,
+              fontWeight: 300,
+              lineHeight: 1.8,
+              color: "var(--stone)",
+              maxWidth: 520,
+              marginTop: 24,
             }}
           >
-            TerraGold
-          </span>
+            Reach out for a free, no-obligation estimate. We typically respond
+            within one business day and serve clients across the Tampa Bay Area.
+          </motion.p>
         </div>
       </div>
 
@@ -425,149 +353,65 @@ export default function ContactPage() {
                 </p>
               </div>
             ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSubmitted(true);
-                }}
-              >
+              <form onSubmit={handleSubmit}>
                 {/* Row 1 */}
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2"
-                  style={{
-                    gap: 24,
-                    marginBottom: 32,
-                  }}
-                >
-                  {[
-                    { label: "Full Name *", key: "name", type: "text", ph: "John Smith", required: true },
-                    { label: "Email Address *", key: "email", type: "email", ph: "john@example.com", required: true },
-                  ].map((f) => (
-                    <div key={f.key}>
-                      <label
-                        style={{
-                          display: "block",
-                          fontFamily: "'Montserrat', sans-serif",
-                          fontSize: 10,
-                          letterSpacing: "0.14em",
-                          textTransform: "uppercase",
-                          color: "var(--stone)",
-                          marginBottom: 8,
-                        }}
-                      >
-                        {f.label}
-                      </label>
-                      <input
-                        type={f.type}
-                        required={f.required}
-                        placeholder={f.ph}
-                        value={(form as Record<string, string>)[f.key]}
-                        onChange={(e) =>
-                          setForm({ ...form, [f.key]: e.target.value })
-                        }
-                        style={{
-                          width: "100%",
-                          background: "transparent",
-                          border: "none",
-                          borderBottom: "1px solid var(--rule)",
-                          padding: "10px 0",
-                          fontFamily: "'Montserrat', sans-serif",
-                          fontSize: 14,
-                          fontWeight: 300,
-                          color: "var(--charcoal)",
-                          outline: "none",
-                        }}
-                        onFocus={(e) =>
-                          (e.target.style.borderBottomColor = "var(--gold)")
-                        }
-                        onBlur={(e) =>
-                          (e.target.style.borderBottomColor = "var(--rule)")
-                        }
-                      />
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 8, marginBottom: 8 }}>
+                  <div>
+                    <FloatingLabelInput
+                      id="name"
+                      label="Full Name *"
+                      type="text"
+                      value={form.name}
+                      onChange={(e) => { setForm({ ...form, name: e.target.value }); setErrors((p) => ({ ...p, name: undefined })); }}
+                    />
+                    {errors.name && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, color: "#b94040", marginTop: 4 }}>{errors.name}</p>}
+                  </div>
+                  <div>
+                    <FloatingLabelInput
+                      id="email"
+                      label="Email Address *"
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors((p) => ({ ...p, email: undefined })); }}
+                    />
+                    {errors.email && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, color: "#b94040", marginTop: 4 }}>{errors.email}</p>}
+                  </div>
                 </div>
 
                 {/* Row 2 */}
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2"
-                  style={{
-                    gap: 24,
-                    marginBottom: 32,
-                  }}
-                >
-                  {[
-                    { label: "Phone Number", key: "phone", type: "tel", ph: "(813) 000-0000", required: false },
-                  ].map((f) => (
-                    <div key={f.key}>
-                      <label
-                        style={{
-                          display: "block",
-                          fontFamily: "'Montserrat', sans-serif",
-                          fontSize: 10,
-                          letterSpacing: "0.14em",
-                          textTransform: "uppercase",
-                          color: "var(--stone)",
-                          marginBottom: 8,
-                        }}
-                      >
-                        {f.label}
-                      </label>
-                      <input
-                        type={f.type}
-                        required={f.required}
-                        placeholder={f.ph}
-                        value={(form as Record<string, string>)[f.key]}
-                        onChange={(e) =>
-                          setForm({ ...form, [f.key]: e.target.value })
-                        }
-                        style={{
-                          width: "100%",
-                          background: "transparent",
-                          border: "none",
-                          borderBottom: "1px solid var(--rule)",
-                          padding: "10px 0",
-                          fontFamily: "'Montserrat', sans-serif",
-                          fontSize: 14,
-                          fontWeight: 300,
-                          color: "var(--charcoal)",
-                          outline: "none",
-                        }}
-                        onFocus={(e) =>
-                          (e.target.style.borderBottomColor = "var(--gold)")
-                        }
-                        onBlur={(e) =>
-                          (e.target.style.borderBottomColor = "var(--rule)")
-                        }
-                      />
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 8, marginBottom: 8 }}>
+                  <FloatingLabelInput
+                    id="phone"
+                    label="Phone Number"
+                    type="tel"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  />
 
-                  <div>
+                  <div className="relative" style={{ height: 56, display: "flex", alignItems: "flex-end" }}>
                     <label
                       style={{
-                        display: "block",
+                        position: "absolute",
+                        top: 8,
+                        left: 0,
                         fontFamily: "'Montserrat', sans-serif",
                         fontSize: 10,
-                        letterSpacing: "0.14em",
+                        letterSpacing: "0.12em",
                         textTransform: "uppercase",
-                        color: "var(--stone)",
-                        marginBottom: 8,
+                        color: "var(--stone-lt)",
                       }}
                     >
                       Service Needed
                     </label>
                     <select
                       value={form.service}
-                      onChange={(e) =>
-                        setForm({ ...form, service: e.target.value })
-                      }
+                      onChange={(e) => setForm({ ...form, service: e.target.value })}
                       style={{
                         width: "100%",
                         background: "transparent",
                         border: "none",
                         borderBottom: "1px solid var(--rule)",
-                        padding: "10px 0",
+                        padding: "0 0 8px",
                         fontFamily: "'Montserrat', sans-serif",
                         fontSize: 14,
                         fontWeight: 300,
@@ -579,60 +423,27 @@ export default function ContactPage() {
                     >
                       <option value="">Select a service...</option>
                       {services.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
+                        <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
                 </div>
 
                 {/* Message */}
-                <div style={{ marginBottom: 40 }}>
-                  <label
-                    style={{
-                      display: "block",
-                      fontFamily: "'Montserrat', sans-serif",
-                      fontSize: 10,
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                      color: "var(--stone)",
-                      marginBottom: 8,
-                    }}
-                  >
-                    Project Details
-                  </label>
-                  <textarea
+                <div style={{ marginBottom: 40, marginTop: 8 }}>
+                  <FloatingLabelTextarea
+                    id="message"
+                    label="Project Details *"
                     rows={5}
-                    placeholder="Describe your project — location, scope, timeline, any specific concerns..."
                     value={form.message}
-                    onChange={(e) =>
-                      setForm({ ...form, message: e.target.value })
-                    }
-                    style={{
-                      width: "100%",
-                      background: "transparent",
-                      border: "none",
-                      borderBottom: "1px solid var(--rule)",
-                      padding: "10px 0",
-                      fontFamily: "'Montserrat', sans-serif",
-                      fontSize: 14,
-                      fontWeight: 300,
-                      color: "var(--charcoal)",
-                      outline: "none",
-                      resize: "vertical",
-                    }}
-                    onFocus={(e) =>
-                      (e.target.style.borderBottomColor = "var(--gold)")
-                    }
-                    onBlur={(e) =>
-                      (e.target.style.borderBottomColor = "var(--rule)")
-                    }
+                    onChange={(e) => { setForm({ ...form, message: e.target.value }); setErrors((p) => ({ ...p, message: undefined })); }}
                   />
+                  {errors.message && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, color: "#b94040", marginTop: 4 }}>{errors.message}</p>}
                 </div>
 
                 <button
                   type="submit"
+                  disabled={submitting}
                   style={{
                     fontFamily: "'Montserrat', sans-serif",
                     fontSize: 11,
@@ -642,18 +453,20 @@ export default function ContactPage() {
                     background: "var(--charcoal)",
                     border: "none",
                     padding: "14px 32px",
-                    cursor: "pointer",
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    opacity: submitting ? 0.6 : 1,
                     transition: "opacity 0.2s",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.opacity = "0.8")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.opacity = "1")
-                  }
+                  onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.opacity = "0.8"; }}
+                  onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.opacity = "1"; }}
                 >
-                  Request Free Estimate
+                  {submitting ? "Sending…" : "Request Free Estimate"}
                 </button>
+                {submitError && (
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 12, color: "#b94040", marginTop: 16 }}>
+                    {submitError}
+                  </p>
+                )}
               </form>
             )}
           </Reveal>

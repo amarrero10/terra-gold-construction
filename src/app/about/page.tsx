@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import { motion, useInView } from "motion/react";
 import { Inter } from "next/font/google";
 import { HorizontalScrollCarousel } from "@/components/ui/horizontal-scroll-carousel";
@@ -90,10 +89,10 @@ export default function AboutPage() {
       >
         {/* Background watermark */}
         <div
+          className="hidden md:flex"
           style={{
             position: "absolute",
             inset: 0,
-            display: "flex",
             alignItems: "center",
             justifyContent: "center",
             pointerEvents: "none",

@@ -353,16 +353,16 @@ export default function ServicesPage() {
               className="grid grid-cols-2 md:grid-cols-4"
               style={{
                 borderTop: "1px solid var(--rule)",
+                borderLeft: "1px solid var(--rule)",
               }}
             >
-              {allServices.map((s, i) => (
+              {allServices.map((s) => (
                 <div
                   key={s}
                   style={{
                     padding: "16px 0 16px 20px",
                     borderBottom: "1px solid var(--rule)",
-                    borderRight:
-                      (i + 1) % 4 !== 0 ? "1px solid var(--rule)" : "none",
+                    borderRight: "1px solid var(--rule)",
                     display: "flex",
                     gap: 10,
                     alignItems: "center",

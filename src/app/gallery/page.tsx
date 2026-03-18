@@ -182,14 +182,20 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, delay = 0, onClick }: ProjectCardProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
+  const cardRef = useRef(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const isInView = useInView(cardRef, { once: true, margin: "100px" });
   const [loaded, setLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
 
+  // Handle cached images that won't fire onLoad
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
+
   return (
     <motion.div
-      ref={ref}
+      ref={cardRef}
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -210,9 +216,9 @@ function ProjectCard({ project, delay = 0, onClick }: ProjectCardProps) {
       >
         {/* Image */}
         <img
+          ref={imgRef}
           src={project.src}
           alt={project.title}
-          loading="lazy"
           onLoad={() => setLoaded(true)}
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-[transform,opacity] duration-700 ease-out",
@@ -334,8 +340,6 @@ export default function GalleryPage() {
   const filtered =
     active === "All" ? allProjects : allProjects.filter((p) => p.cat === active);
 
-  const cols: (typeof allProjects)[] = [[], [], []];
-  filtered.forEach((p, i) => cols[i % 3].push(p));
 
   return (
     <>
@@ -470,7 +474,7 @@ export default function GalleryPage() {
             {filtered.length} project{filtered.length !== 1 ? "s" : ""}
           </motion.p>
 
-          {/* 3-column masonry grid */}
+          {/* Masonry grid */}
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -478,19 +482,16 @@ export default function GalleryPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="grid grid-cols-2 md:grid-cols-3"
-              style={{ gap: 8, alignItems: "start" }}
+              className="columns-2 md:columns-3"
+              style={{ gap: 8 }}
             >
-              {cols.map((col, colIdx) => (
-                <div key={colIdx} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  {col.map((project, rowIdx) => (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                      delay={rowIdx * 0.06}
-                      onClick={() => setLightbox(project)}
-                    />
-                  ))}
+              {filtered.map((project, i) => (
+                <div key={project.id} style={{ breakInside: "avoid", marginBottom: 8 }}>
+                  <ProjectCard
+                    project={project}
+                    delay={(i % 6) * 0.06}
+                    onClick={() => setLightbox(project)}
+                  />
                 </div>
               ))}
             </motion.div>
