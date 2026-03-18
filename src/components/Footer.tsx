@@ -138,6 +138,16 @@ export default function Footer() {
         <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 12, fontWeight: 300, color: "rgba(245,240,232,0.3)" }}>
           Tampa Bay Area
         </p>
+        <a
+          href="https://www.albert-dev.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 12, fontWeight: 300, color: "rgba(245,240,232,0.3)", textDecoration: "none", transition: "color 0.2s" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(245,240,232,0.7)")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,240,232,0.3)")}
+        >
+          Made by Marrero Web Studio
+        </a>
       </div>
     </footer>
   );
