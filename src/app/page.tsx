@@ -6,6 +6,7 @@ import { motion, useInView } from "motion/react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Marquee } from "@/components/ui/marquee";
 import { FlowButton } from "@/components/ui/flow-button";
+import { ImageComparison } from "@/components/ui/image-comparison-slider";
 import { ChevronDown } from "lucide-react";
 import { Gelasio, Inter } from "next/font/google";
 
@@ -136,20 +137,47 @@ const expertise = [
 ];
 
 const sectors = [
-  { label: "Stucco & Lath", desc: "Cementous, synthetic EIFS, and full lath systems" },
-  { label: "Drywall Repair & Install", desc: "Build-outs, water damage, texture options" },
+  {
+    label: "Stucco & Lath",
+    desc: "Cementous, synthetic EIFS, and full lath systems",
+  },
+  {
+    label: "Drywall Repair & Install",
+    desc: "Build-outs, water damage, texture options",
+  },
   {
     label: "Stone & Brick Veneer",
     desc: "Manufactured, natural stone, fireplace, architectural trim",
   },
-  { label: "Interior & Exterior Paint", desc: "Residential and commercial, full prep and finish" },
-  { label: "Siding, Soffit & Foam", desc: "Shiplap, soffit, architectural foam decorations" },
+  {
+    label: "Interior & Exterior Paint",
+    desc: "Residential and commercial, full prep and finish",
+  },
+  {
+    label: "Siding, Soffit & Foam",
+    desc: "Shiplap, soffit, architectural foam decorations",
+  },
 ];
 
 const projects = [
-  { label: "Stucco", title: "Exterior Stucco Renovation", loc: "Tampa, FL", img: "/pic1.webp" },
-  { label: "Transformation", title: "Lakehills Airbnb Flip", loc: "Tampa, FL", img: "/pic7.webp" },
-  { label: "Brick", title: "Brick Veneer Installation", loc: "Brandon, FL", img: "/pic5.webp" },
+  {
+    label: "Stucco",
+    title: "Exterior Stucco Renovation",
+    loc: "Tampa, FL",
+    img: "/pic1.webp",
+  },
+  {
+    label: "Transformation",
+    title: "Lakehills Airbnb Flip",
+    loc: "Tampa, FL",
+    img: "/pic7.webp",
+  },
+  {
+    label: "Brick",
+    title: "Brick Veneer Installation",
+    loc: "Brandon, FL",
+    img: "/pic5.webp",
+  },
 ];
 
 export default function HomePage() {
@@ -190,8 +218,9 @@ export default function HomePage() {
               bottom: 0,
               left: 0,
               right: 0,
-              height: "55%",
-              background: "linear-gradient(to bottom, transparent 0%, var(--cream) 100%)",
+              height: "50%",
+              background:
+                "linear-gradient(to bottom, transparent 0%, var(--cream) 100%)",
             }}
           />
         </div>
@@ -262,9 +291,10 @@ export default function HomePage() {
                 }}
                 className={`${inter.className}`}
               >
-                TerraGold is a forward-thinking construction company based in Tampa, FL, providing
-                comprehensive stucco, drywall, stone, and painting services to residential and
-                commercial clients across the Tampa Bay Area.
+                TerraGold is a forward-thinking construction company based in
+                Tampa, FL, providing comprehensive stucco, drywall, stone, and
+                painting services to residential and commercial clients across
+                the Tampa Bay Area.
               </p>
 
               <div style={{ display: "flex", gap: 64, paddingTop: 6 }}>
@@ -330,7 +360,14 @@ export default function HomePage() {
             >
               Who We Are
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
+                marginBottom: 28,
+              }}
+            />
             <p
               style={{
                 fontSize: 17,
@@ -341,9 +378,10 @@ export default function HomePage() {
               }}
               className={`${inter.className}`}
             >
-              Our team ensures better outcomes at every stage of your project lifecycle. With over
-              15 years of diverse industry experience, we proactively manage your exterior and
-              interior needs — stucco, lath, drywall, stone, painting, and siding.
+              Our team ensures better outcomes at every stage of your project
+              lifecycle. With over 15 years of diverse industry experience, we
+              proactively manage your exterior and interior needs — stucco,
+              lath, drywall, stone, painting, and siding.
             </p>
             <Link
               href="/about"
@@ -414,7 +452,11 @@ export default function HomePage() {
               >
                 {s}
               </span>
-              <span style={{ color: "var(--gold)", fontSize: 10, opacity: 0.6 }}>✦</span>
+              <span
+                style={{ color: "var(--gold)", fontSize: 10, opacity: 0.6 }}
+              >
+                ✦
+              </span>
             </div>
           ))}
         </Marquee>
@@ -445,7 +487,15 @@ export default function HomePage() {
             >
               What We Specialize In
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginTop: 0, marginBottom: 8 }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
+                marginTop: 0,
+                marginBottom: 8,
+              }}
+            />
             <p
               className={`${inter.className}`}
               style={{
@@ -457,9 +507,10 @@ export default function HomePage() {
                 marginBottom: 72,
               }}
             >
-              Our multidisciplinary team delivers consistent, high-quality results at every stage
-              of your project. By keeping all work in-house, we maintain full control over
-              craftsmanship, timelines, and outcomes—no shortcuts, no sub-contractors.
+              Our multidisciplinary team delivers consistent, high-quality
+              results at every stage of your project. By keeping all work
+              in-house, we maintain full control over craftsmanship, timelines,
+              and outcomes—no shortcuts, no sub-contractors.
             </p>
           </Reveal>
 
@@ -472,7 +523,11 @@ export default function HomePage() {
             {expertise.map((e, i) => (
               <Reveal key={e.title} delay={i * 0.08}>
                 <div
-                  className={i > 0 ? "border-t border-(--rule) md:border-t-0 md:pl-12" : ""}
+                  className={
+                    i > 0
+                      ? "border-t border-(--rule) md:border-t-0 md:pl-12"
+                      : ""
+                  }
                   style={{
                     paddingTop: 48,
                     paddingRight: 48,
@@ -558,7 +613,14 @@ export default function HomePage() {
                 <br />
                 Services
               </p>
-              <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 20 }} />
+              <div
+                style={{
+                  width: 36,
+                  height: 2,
+                  background: "var(--gold)",
+                  marginBottom: 20,
+                }}
+              />
               <p
                 className={`${inter.className}`}
                 style={{
@@ -569,7 +631,8 @@ export default function HomePage() {
                   marginBottom: 36,
                 }}
               >
-                We make complex projects simple—handled entirely by our team from start to finish.
+                We make complex projects simple—handled entirely by our team
+                from start to finish.
               </p>
               <Link
                 href="/services"
@@ -677,17 +740,26 @@ export default function HomePage() {
                 marginBottom: 48,
               }}
             >
-              <p
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 48,
-                  fontWeight: 400,
-                  color: "var(--charcoal)",
-                }}
-              >
-                Insights &amp; Projects
-              </p>
-              <div style={{ width: 36, height: 2, background: "var(--gold)", marginTop: 8 }} />
+              <div>
+                <p
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 48,
+                    fontWeight: 400,
+                    color: "var(--charcoal)",
+                  }}
+                >
+                  Insights &amp; Projects
+                </p>
+                <div
+                  style={{
+                    width: 36,
+                    height: 2,
+                    background: "var(--gold)",
+                    marginTop: 8,
+                  }}
+                />
+              </div>
               <Link
                 href="/gallery"
                 style={{
@@ -706,10 +778,7 @@ export default function HomePage() {
             </div>
           </Reveal>
 
-          <div
-            className="grid grid-cols-1 md:grid-cols-3"
-            style={{ gap: 32 }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 32 }}>
             {projects.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08}>
                 <Link href="/gallery" style={{ textDecoration: "none" }}>
@@ -722,11 +791,15 @@ export default function HomePage() {
                       position: "relative",
                     }}
                     onMouseEnter={(e) => {
-                      const el = e.currentTarget.querySelector(".img-inner") as HTMLElement;
+                      const el = e.currentTarget.querySelector(
+                        ".img-inner",
+                      ) as HTMLElement;
                       if (el) el.style.transform = "scale(1.05)";
                     }}
                     onMouseLeave={(e) => {
-                      const el = e.currentTarget.querySelector(".img-inner") as HTMLElement;
+                      const el = e.currentTarget.querySelector(
+                        ".img-inner",
+                      ) as HTMLElement;
                       if (el) el.style.transform = "scale(1)";
                     }}
                   >
@@ -739,7 +812,8 @@ export default function HomePage() {
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         filter: "grayscale(70%) contrast(1.05)",
-                        transition: "transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)",
+                        transition:
+                          "transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)",
                       }}
                     />
                     <div
@@ -788,6 +862,66 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+
+          {/* Before & After comparison */}
+          <Reveal delay={0.1}>
+            <div
+              style={{
+                marginTop: 72,
+                borderTop: "1px solid var(--rule)",
+                paddingTop: 56,
+              }}
+            >
+              <div style={{ marginBottom: 32 }}>
+                <p
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: 11,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--gold)",
+                    marginBottom: 8,
+                  }}
+                >
+                  Transformation
+                </p>
+                <p
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 36,
+                    fontWeight: 400,
+                    color: "var(--charcoal)",
+                    marginBottom: 8,
+                  }}
+                >
+                  Before &amp; After
+                </p>
+                <div
+                  style={{ width: 36, height: 2, background: "var(--gold)" }}
+                />
+                <p
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: 13,
+                    fontWeight: 300,
+                    color: "var(--stone)",
+                    marginTop: 16,
+                    maxWidth: 480,
+                    lineHeight: 1.7,
+                  }}
+                >
+                  Drag the slider to see the difference our craftsmanship makes
+                  — from raw substrate to finished surface.
+                </p>
+              </div>
+              <ImageComparison
+                beforeImage="/after.PNG"
+                afterImage="/before.jpeg"
+                altBefore="Before — unfinished exterior surface"
+                altAfter="After — completed Terra Gold finish"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -823,7 +957,14 @@ export default function HomePage() {
             >
               Our Promise
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 28 }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
+                marginBottom: 28,
+              }}
+            />
             <p
               className={`${inter.className}`}
               style={{
@@ -834,9 +975,10 @@ export default function HomePage() {
                 marginBottom: 40,
               }}
             >
-              Client safety is our top priority. We are clean, reliable, friendly, responsible, and
-              detail oriented. We offer free estimates and warranty all of our jobs. You will pay
-              what is fair and get a professional job done.
+              Client safety is our top priority. We are clean, reliable,
+              friendly, responsible, and detail oriented. We offer free
+              estimates and warranty all of our jobs. You will pay what is fair
+              and get a professional job done.
             </p>
             <FlowButton href="/contact" text="Free Estimate" />
           </Reveal>
@@ -883,7 +1025,13 @@ export default function HomePage() {
               margin: "0 auto",
             }}
           >
-            <div style={{ display: "inline-flex", flexDirection: "column", gap: 6 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                flexDirection: "column",
+                gap: 6,
+              }}
+            >
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
@@ -938,11 +1086,21 @@ export default function HomePage() {
             >
               The Standard We Work By
             </p>
-            <div style={{ width: 36, height: 2, background: "var(--gold)", marginBottom: 48 }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                background: "var(--gold)",
+                marginBottom: 48,
+              }}
+            />
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 16 }}>
+            <div
+              className="grid grid-cols-1 md:grid-cols-4"
+              style={{ gap: 16 }}
+            >
               {[
                 {
                   title: "Licensed & Insured",
