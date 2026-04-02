@@ -71,11 +71,10 @@ export default function ContactPage() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          access_key: "c2bd50fb-e7f6-417f-a697-bb567b178a24",
           name: form.name,
           email: form.email,
           phone: form.phone,
@@ -429,6 +428,20 @@ export default function ContactPage() {
                   />
                   {errors.message && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, color: "#b94040", marginTop: 4 }}>{errors.message}</p>}
                 </div>
+
+                <p
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: 11,
+                    fontWeight: 300,
+                    color: "var(--stone)",
+                    lineHeight: 1.7,
+                    marginBottom: 16,
+                  }}
+                >
+                  By submitting this form, you consent to be contacted by TerraGold Construction regarding your inquiry.
+                </p>
+
 
                 <button
                   type="submit"
